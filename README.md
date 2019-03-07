@@ -22,7 +22,7 @@ This is done on startup time
 
 ## Magic is going on
 [Hogwarts Magic Creator](src/main/java/org/acme/infinispanclient/service/HogwartsMagicCreator.java) is going to emulate
-characters performing some magic. Randomly will pick up a character and a spell, and perform the magic!
+characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers and students. 
 
 ## Search Search
