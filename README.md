@@ -14,7 +14,7 @@ Hogwarts and performing magic.
 
 A Character has an id, name, biography and type (other, student, teacher, muggle).
 A Spell has an id, name and description.
-A Spell is performed by a character. This character can or cannot be at Hogwarts.
+A Spell is performed by a character. This character may or may not be at Hogwarts.
 
 ## Data loading
 `DataLoader` class loads characters and spells in two separate stores.
