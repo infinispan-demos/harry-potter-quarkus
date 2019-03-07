@@ -66,7 +66,7 @@
     </dependencies>
 
     <build>
-        <finalName>quarkus-quickstart</finalName>
+        <finalName>harry-potter-quarkus</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

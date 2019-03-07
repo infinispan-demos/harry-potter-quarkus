@@ -33,8 +33,22 @@ characters by id or perform a full-text search on top of the name or the biograp
 [A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs Continuous Query make possible to
 monitor which characters in Hogwarts are now performing some magic.
 
-
-# Run the demo
+# Run the demo in dev mode
 In dev mode, just run `mvn clean compile quarkus:dev`
 Go to `http://localhost:8080` and monitor the magic!
 You will be connected to the monitoring socket and you will find there the links to perform some REST search.
+
+# Run the demo 
+
+1) `mvn clean package`
+
+2) `java -jar target/harry-potter-quarkus-runner.jar`
+
+# Native mode and deploying in Openshift
+Compile the application in native mode:
+
+`mvn package -Pnative -Dnative-image.docker-build=true`
+
+TBD
+
+
