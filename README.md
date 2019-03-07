@@ -9,7 +9,7 @@ This example showcases how to use Infinispan client with Quarkus.
 
 # Harry-Potter demo
 
-The demo will load characters and spells. Characters do execute spells, and we want to monitor who is in
+The demo will load characters and spells. Characters can execute spells, and we want to monitor who is in
 Hogwarts and is executing magic.
 
 A Character has an id, name, biography and type (other, student, teacher, muggle).
