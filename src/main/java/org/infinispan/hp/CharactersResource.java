@@ -1,4 +1,4 @@
-package org.acme.infinispanclient;
+package org.infinispan.hp;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,8 +12,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
-import org.acme.infinispanclient.model.HPCharacter;
-import org.acme.infinispanclient.service.CharacterSearch;
+import org.infinispan.hp.model.HPCharacter;
+import org.infinispan.hp.service.CharacterSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class CharactersResource {
    private static final Logger LOGGER = LoggerFactory.getLogger("HarryPotterResource");
 
    @Inject
-   private CharacterSearch searchService;
+   CharacterSearch searchService;
 
    @GET
    @Path("/{id}")

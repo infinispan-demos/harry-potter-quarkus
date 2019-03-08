@@ -1,4 +1,4 @@
-package org.acme.infinispanclient.model;
+package org.infinispan.hp.model;
 
 import java.util.Objects;
 

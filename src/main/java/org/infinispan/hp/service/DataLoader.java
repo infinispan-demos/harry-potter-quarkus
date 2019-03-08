@@ -1,4 +1,4 @@
-package org.acme.infinispanclient.service;
+package org.infinispan.hp.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,9 +9,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.acme.infinispanclient.model.HPCharacter;
-import org.acme.infinispanclient.model.HPMagic;
-import org.acme.infinispanclient.model.HPSpell;
+import org.infinispan.hp.model.HPCharacter;
+import org.infinispan.hp.model.HPMagic;
+import org.infinispan.hp.model.HPSpell;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -30,14 +30,14 @@ public class DataLoader {
 
    @Inject
    @ConfigProperty(name = "characters.filename")
-   private String charactersFileName;
+   String charactersFileName;
 
    @Inject
    @ConfigProperty(name = "spells.filename")
-   private String spellsFileName;
+   String spellsFileName;
 
    @Inject
-   private RemoteCacheManager cacheManager;
+   RemoteCacheManager cacheManager;
 
    void onStart(@Observes StartupEvent ev) {
       LOGGER.info("On start - clean and load");
@@ -45,6 +45,8 @@ public class DataLoader {
       RemoteCache<Integer, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, "default");
       RemoteCache<Integer, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, "default");
       RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, "default");
+
+      LOGGER.info("Existing stores are " + cacheManager.getCacheNames().toString());
 
       // Cleanup data
       cleanupCaches(characters, spells, magic);
@@ -68,7 +70,7 @@ public class DataLoader {
       try {
          CompletableFuture.allOf(characters.clearAsync(), spells.clearAsync(), magic.clearAsync()).get(10, TimeUnit.SECONDS);
       } catch (Exception e) {
-         LOGGER.error("Something went wrong clearing caches", e);
+         LOGGER.error("Something went wrong clearing stores", e);
       }
    }
 

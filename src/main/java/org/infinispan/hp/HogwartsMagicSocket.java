@@ -1,4 +1,4 @@
-package org.acme.infinispanclient;
+package org.infinispan.hp;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,8 +12,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.acme.infinispanclient.model.HPMagic;
-import org.acme.infinispanclient.service.DataLoader;
+import org.infinispan.hp.model.HPMagic;
+import org.infinispan.hp.service.DataLoader;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.Search;
 import org.infinispan.query.api.continuous.ContinuousQuery;
@@ -29,17 +29,21 @@ import io.quarkus.infinispan.client.runtime.Remote;
 @ApplicationScoped
 public class HogwartsMagicSocket {
 
-   private static final Logger LOG = LoggerFactory.getLogger("HogwartsMagicSocket");
+   private static final Logger LOGGER = LoggerFactory.getLogger("HogwartsMagicSocket");
 
    @Inject
    @Remote(DataLoader.HP_MAGIC_NAME)
-   private RemoteCache<String, HPMagic> magic;
+   RemoteCache<String, HPMagic> magic;
 
    private Map<Session, ContinuousQueryListener<String, HPMagic>> listeners = new ConcurrentHashMap<>();
 
    @OnOpen
    public void onOpen(Session session) {
-      LOG.info("Session opened");
+      LOGGER.info("Hogwarts monitoring session has been opened");
+      if (magic == null) {
+         LOGGER.error("Unable to search... Is He-Who-Must-Not-Be-Named around?");
+         throw new IllegalStateException("Characters store is null. Try restarting the application");
+      }
       ContinuousQuery<String, HPMagic> continuousQuery = Search.getContinuousQuery(magic);
 
       QueryFactory queryFactory = Search.getQueryFactory(magic);
@@ -53,7 +57,7 @@ public class HogwartsMagicSocket {
             try {
                session.getBasicRemote().sendText(value.getAuthor() + " executed " + value.getSpell());
             } catch (IOException e) {
-               LOG.error("Ops, something went wrong...", e);
+               LOGGER.error("The Dark Lord intercepted the monitoring...", e);
             }
          }
       };
@@ -64,13 +68,13 @@ public class HogwartsMagicSocket {
 
    @OnClose
    public void onClose(Session session) {
-      LOG.info("Session closed");
+      LOGGER.info("Hogwarts monitoring has been closed");
       removeListener(session);
    }
 
    @OnError
    public void onError(Session session, Throwable throwable) {
-      LOG.error("Session ended with error", throwable);
+      LOGGER.error("Hogwarts monitoring session error", throwable);
       removeListener(session);
    }
 
