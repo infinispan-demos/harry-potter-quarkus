@@ -36,18 +36,18 @@ This is done on startup time
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students. 
 
-## Search Search
+## Search
 [A simple REST service](src/main/java/org/acme/infinispanclient/CharactersResource.java) is available to query
 characters by id or perform a full-text search on top of the name or the biography. 
 
 ## Magic Socket
-[A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs Continuous Query make possible to
-monitor which characters in Hogwarts are now performing some magic.
+[A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs a Continuous Query making it possible to
+monitor which characters in Hogwarts are currently performing magic.
 
 # Run the demo in dev mode
-In dev mode, just run `mvn clean compile quarkus:dev`
+To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it and it will automatically redeploy.
 Go to `http://localhost:8081` and monitor the magic!
-You will be connected to the monitoring socket and you will find there the links to perform some REST search.
+You will be connected to the monitoring socket and links to perform a REST based search.
 
 # Run the demo 
 
