@@ -59,10 +59,15 @@ public class DataLoader {
       try {
          loadCharacters(characters);
          LOGGER.info("Characters loaded. Size: " + characters.size());
+      } catch (Exception e) {
+         LOGGER.error("Unable to load characters on startup. Are you a Muggle or a Wizard?", e);
+      }
+
+      try {
          loadSpells(spells);
          LOGGER.info("Spells loaded. Size: " + spells.size());
       } catch (Exception e) {
-         LOGGER.error("Unable to load data on startup", e);
+         LOGGER.error("Unable to load spells data on startup. Are you a Muggle or a Wizard?", e);
       }
    }
 
@@ -70,7 +75,7 @@ public class DataLoader {
       try {
          CompletableFuture.allOf(characters.clearAsync(), spells.clearAsync(), magic.clearAsync()).get(10, TimeUnit.SECONDS);
       } catch (Exception e) {
-         LOGGER.error("Something went wrong clearing stores", e);
+         LOGGER.error("Something went wrong clearing stores, the Dark Lord must be around again.", e);
       }
    }
 

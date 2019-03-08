@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @Path("/harry-potter")
 public class CharactersResource {
 
-   private static final Logger LOGGER = LoggerFactory.getLogger("HarryPotterResource");
+   private static final Logger LOGGER = LoggerFactory.getLogger("CharactersResource");
 
    @Inject
    CharacterSearch searchService;

@@ -1,3 +1,4 @@
+# test fedora-minimal
 FROM centos:7
 WORKDIR /work/
 COPY target/*-runner /work/application
