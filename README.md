@@ -16,7 +16,7 @@ Uses Quarkus features, such as
 # Before running the demo
 
 Quarkus uses [Infinispan Remote Client](http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server).
-You need to have an Infinispan Server running before you this demo.
+You need to have an Infinispan Server running before you run this demo.
 
 Option 1: Use Docker `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
 Option 2: Download and run the server
