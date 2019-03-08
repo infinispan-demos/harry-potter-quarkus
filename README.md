@@ -1,11 +1,22 @@
 # Quarkus demo: Infinispan Client
 
-This example showcases how to use Infinispan client with Quarkus. 
+This example showcases how to use Infinispan client with Quarkus.
+* Create stores dynamically
+* Simple get/put operations
+* Full-text query
+* Continuous query
+
+Uses quarkus features, such as
+* REST web-service
+* Web Socket
+* Task Scheduling
+* Application properties
+* Application lifecycle events listeners
 
 # Run infinispan server
 
 - Running with docker `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
-- Download the server from `http://www.infinsispan.org` and run `./bin/standalone.sh`
+- Download the server from `http://www.infinispan.org` and run `./bin/standalone.sh`
 
 # Harry-Potter demo
 
@@ -35,14 +46,13 @@ monitor which characters in Hogwarts are now performing some magic.
 
 # Run the demo in dev mode
 In dev mode, just run `mvn clean compile quarkus:dev`
-Go to `http://localhost:8080` and monitor the magic!
+Go to `http://localhost:8081` and monitor the magic!
 You will be connected to the monitoring socket and you will find there the links to perform some REST search.
 
 # Run the demo 
 
-1) `mvn clean package`
-
-2) `java -jar target/harry-potter-quarkus-runner.jar`
+- `mvn clean package`
+- `java -jar target/harry-potter-quarkus-runner.jar`
 
 # Native mode and deploying in Openshift
 Compile the application in native mode:
