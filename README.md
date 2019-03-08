@@ -41,7 +41,7 @@ Characters in Hogwarts are teachers or students.
 characters by id or perform a full-text search on top of the name or the biography. 
 
 ## Magic Socket
-[A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs Continuous Query make possible to
+[A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are now performing some magic.
 
 # Run the demo in dev mode
