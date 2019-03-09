@@ -9,16 +9,16 @@ public class HarryPotterMagicMarshaller implements MessageMarshaller<HPMagic> {
    @Override
    public HPMagic readFrom(ProtoStreamReader reader) throws IOException {
       String id = reader.readString("id");
-      String author = reader.readString("author");
+      String caster = reader.readString("caster");
       String spell = reader.readString("spell");
       boolean h = reader.readBoolean("hogwarts");
-      return new HPMagic(id, author, spell, h);
+      return new HPMagic(id, caster, spell, h);
    }
 
    @Override
    public void writeTo(ProtoStreamWriter writer, HPMagic magic) throws IOException {
       writer.writeString("id", magic.getId());
-      writer.writeString("author", magic.getAuthor());
+      writer.writeString("caster", magic.getCaster());
       writer.writeString("spell", magic.getSpell());
       writer.writeBoolean("hogwarts", magic.isHogwarts());
    }

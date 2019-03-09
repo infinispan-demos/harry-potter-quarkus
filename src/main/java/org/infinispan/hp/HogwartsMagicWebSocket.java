@@ -54,7 +54,7 @@ public class HogwartsMagicWebSocket {
          @Override
          public void resultJoining(String key, HPMagic value) {
             try {
-               session.getBasicRemote().sendText(value.getAuthor() + " executed " + value.getSpell());
+               session.getBasicRemote().sendText(value.getCaster() + " executed " + value.getSpell());
             } catch (IOException e) {
                LOGGER.error("The Dark Lord intercepted the monitoring...", e);
             }
