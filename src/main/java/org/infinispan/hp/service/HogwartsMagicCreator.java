@@ -19,7 +19,7 @@ import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped
 public class HogwartsMagicCreator {
-   private static final Logger LOGGER = LoggerFactory.getLogger("HogwartsMagicCreator");
+   private static final Logger LOGGER = LoggerFactory.getLogger(HogwartsMagicCreator.class.getName());
 
    @Inject
    @Remote(DataLoader.HP_CHARACTERS_NAME)

@@ -20,13 +20,16 @@ import org.slf4j.LoggerFactory;
 
 import io.quarkus.runtime.StartupEvent;
 
+/**
+ * Service to cleanup and load application data
+ */
 @ApplicationScoped
 public class DataLoader {
+   private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class.getName());
+
    public static final String HP_CHARACTERS_NAME = "characters";
    public static final String HP_SPELLS_NAME = "spells";
    public static final String HP_MAGIC_NAME = "magic";
-
-   private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class.getName());
 
    @Inject
    @ConfigProperty(name = "characters.filename")
@@ -39,6 +42,9 @@ public class DataLoader {
    @Inject
    RemoteCacheManager cacheManager;
 
+   /**
+    * Listens startup event to load the data
+    */
    void onStart(@Observes StartupEvent ev) {
       LOGGER.info("On start - clean and load");
       // Get or create caches
@@ -92,7 +98,8 @@ public class DataLoader {
          while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
             int type = Integer.parseInt(values[0].trim());
-            HPCharacter character = new HPCharacter(id, values[1].trim(), values[2].trim(), type);
+            HPCharacter.CharacterType hpType = HPCharacter.CharacterType.values()[type];
+            HPCharacter character = new HPCharacter(id, values[1].trim(), values[2].trim(), hpType);
             cache.put(id, character);
             id++;
          }
