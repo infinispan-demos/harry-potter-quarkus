@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.Search;
+import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.query.dsl.QueryBuilder;
 import org.infinispan.query.dsl.QueryFactory;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import io.quarkus.infinispan.client.runtime.Remote;
 
 @ApplicationScoped
 public class CharacterSearch {
-
    private static final Logger LOGGER = LoggerFactory.getLogger("CharacterSearch");
 
    @Inject

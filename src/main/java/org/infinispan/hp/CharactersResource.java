@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
 
 @Path("/harry-potter")
 public class CharactersResource {
-
-   private static final Logger LOGGER = LoggerFactory.getLogger("CharactersResource");
+   private static final Logger LOGGER = LoggerFactory.getLogger(CharactersResource.class.getName());
 
    @Inject
    CharacterSearch searchService;

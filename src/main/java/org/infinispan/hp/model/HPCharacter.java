@@ -9,9 +9,16 @@ public class HPCharacter {
    private final int id;
    private final String name;
    private final String bio;
-   private final int type;
+   private final CharacterType type;
 
-   public HPCharacter(int id, String name, String bio, int type) {
+   public enum CharacterType {
+      OTHER,
+      STUDENT,
+      TEACHER,
+      MUGGLE
+   }
+
+   public HPCharacter(int id, String name, String bio, CharacterType type) {
       this.id = id;
       this.name = name;
       this.bio = bio;
@@ -56,15 +63,15 @@ public class HPCharacter {
       return bio;
    }
 
-   public int getType() {
+   public CharacterType getType() {
       return type;
    }
 
    public boolean isAtHogwarts() {
-      return type == 1 || type == 2;
+      return type == CharacterType.STUDENT || type == CharacterType.TEACHER;
    }
 
    public boolean canDoMagic() {
-      return type != 4;
+      return type != CharacterType.MUGGLE;
    }
 }

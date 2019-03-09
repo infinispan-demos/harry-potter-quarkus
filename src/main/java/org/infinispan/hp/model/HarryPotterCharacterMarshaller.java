@@ -12,7 +12,7 @@ public class HarryPotterCharacterMarshaller implements MessageMarshaller<HPChara
       String name = reader.readString("name");
       String bio = reader.readString("bio");
       int type = reader.readInt("type");
-      return new HPCharacter(id, name, bio, type);
+      return new HPCharacter(id, name, bio, HPCharacter.CharacterType.values()[type]);
    }
 
    @Override
@@ -20,7 +20,7 @@ public class HarryPotterCharacterMarshaller implements MessageMarshaller<HPChara
       writer.writeInt("id", character.getId());
       writer.writeString("name", character.getName());
       writer.writeString("bio", character.getBio());
-      writer.writeInt("type", character.getType());
+      writer.writeInt("type", character.getType().ordinal());
    }
 
    @Override

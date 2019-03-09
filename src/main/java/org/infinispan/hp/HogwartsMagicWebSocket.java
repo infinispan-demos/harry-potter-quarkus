@@ -27,9 +27,8 @@ import io.quarkus.infinispan.client.runtime.Remote;
 
 @ServerEndpoint("/harry-potter/hogwarts")
 @ApplicationScoped
-public class HogwartsMagicSocket {
-
-   private static final Logger LOGGER = LoggerFactory.getLogger("HogwartsMagicSocket");
+public class HogwartsMagicWebSocket {
+   private static final Logger LOGGER = LoggerFactory.getLogger(HogwartsMagicWebSocket.class.getName());
 
    @Inject
    @Remote(DataLoader.HP_MAGIC_NAME)
