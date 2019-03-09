@@ -73,20 +73,27 @@ Server running in a Docker container:
 
 - `mvn clean package`
 - `cd target`
-- `java -jar  -Dcharacters.filename=classes/hp_characters.csv -Dspells.filename=classes/hp_spells.csv harry-potter-quarkus-runner.jar`
-
-The data that is loaded is copied under classes folder in target. We can override these file names in runtime. 
-Those properties are configured in the application.properties and injected to the `DataLoader` service.
+- `java -jar harry-potter-quarkus-runner.jar`
 
 # Run the demo in native mode
 Compile the application in native mode:
 
 - `mvn package -Pnative`
 - `cd target`
-- `./harry-potter-quarkus-runner -Dcharacters.filename=classes/hp_characters.csv -Dspells.filename=classes/hp_spells.csv`
+- `./harry-potter-quarkus-runner`
 
-The data that is loaded is copied under classes folder in target. We can override these file names in runtime. 
-Those properties are configured in the application.properties and injected to the `DataLoader` service.
+### Loaded data 
+Maven copies `hp_characters.csv` and `hp_spells.csv`to the target directory, that's why it's easier to run the executables
+from the `target` folder. However you can override these files location at runtime.
+
+- Running the jar
+ 
+   `java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv harry-potter-quarkus-runner.jar`
+
+- Running the native
+ 
+   `./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv`
+
 
 # Run and deploying in Openshift
 `mvn package -Pnative -Dnative-image.docker-build=true`
