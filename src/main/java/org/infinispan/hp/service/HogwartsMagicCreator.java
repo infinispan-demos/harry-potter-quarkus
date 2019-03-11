@@ -2,7 +2,6 @@ package org.infinispan.hp.service;
 
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -40,7 +39,7 @@ public class HogwartsMagicCreator {
     * Wait 10 seconds (should be enough time for stores to be created if they don't exist. Then perform some magic every
     * 3 seconds
     */
-   @Scheduled(every = "3s", delay = 5, delayUnit = TimeUnit.SECONDS)
+   @Scheduled(every = "3s")
    void executeMagic() {
       if (illegalState()) {
          throw new IllegalStateException("Unable to perform magic at Hogwarts ... Is You-Know-Who around?");
