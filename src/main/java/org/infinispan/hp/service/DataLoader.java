@@ -5,16 +5,17 @@ import java.io.FileReader;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.infinispan.hp.model.HPCharacter;
-import org.infinispan.hp.model.HPMagic;
-import org.infinispan.hp.model.HPSpell;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.hp.model.HPCharacter;
+import org.infinispan.hp.model.HPMagic;
+import org.infinispan.hp.model.HPSpell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class DataLoader {
    /**
     * Listens startup event to load the data
     */
-   void onStart(@Observes StartupEvent ev) {
+   void onStart(@Observes @Priority(value = 1) StartupEvent ev) {
       LOGGER.info("On start - clean and load");
       // Get or create caches
       RemoteCache<Integer, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, "default");
