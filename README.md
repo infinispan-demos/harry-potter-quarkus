@@ -39,17 +39,19 @@ performing magic.
 This is done at startup time
 
 ## Magic is going on
-[Hogwarts Magic Creator](src/main/java/org/acme/infinispanclient/service/HogwartsMagicCreator.java) is going to emulate
+[Hogwarts Magic Creator](src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java) is going to emulate
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students. 
 
 ## Search
-[A simple REST service](src/main/java/org/acme/infinispanclient/CharactersResource.java) is available to query
+[A simple REST service](src/main/java/org/infinispan/hp/CharactersResource.java) is available to query
 characters by id or perform a full-text search of the name or the biography. 
 
 ## Magic Socket
-[A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs a Continuous Query making it possible to
+[A socket](src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java) that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
+The continuous query does not have to go to the server and it is all stored in the client application itself. [Read more 
+about these queries in the official Infinispan documentation](http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous).
 
 # Run the demo in dev mode
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 

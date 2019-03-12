@@ -43,13 +43,14 @@ public class HogwartsMagicWebSocket {
          LOGGER.error("Unable to search... Is He-Who-Must-Not-Be-Named around?");
          throw new IllegalStateException("Characters store is null. Try restarting the application");
       }
-      ContinuousQuery<String, HPMagic> continuousQuery = Search.getContinuousQuery(magic);
 
+      // Create the query. Every character that it's actually performing magic in Hogwarts
       QueryFactory queryFactory = Search.getQueryFactory(magic);
       Query query = queryFactory.from(HPMagic.class)
             .having("hogwarts").eq(true)
             .build();
 
+      // Create a Continuous Query Listener
       ContinuousQueryListener<String, HPMagic> listener = new ContinuousQueryListener<String, HPMagic>() {
          @Override
          public void resultJoining(String key, HPMagic value) {
@@ -61,19 +62,27 @@ public class HogwartsMagicWebSocket {
          }
       };
 
+      // Create a continuous query
+      ContinuousQuery<String, HPMagic> continuousQuery = Search.getContinuousQuery(magic);
+
+      // Link the query and the listener
       continuousQuery.addContinuousQueryListener(query, listener);
+
+      // Track a session with a listener to be able to remove the listener when the web-socket is closed or an error happens
       listeners.put(session, listener);
    }
 
    @OnClose
    public void onClose(Session session) {
       LOGGER.info("Hogwarts monitoring has been closed");
+      // Removing the listener is important to avoid memory leaks
       removeListener(session);
    }
 
    @OnError
    public void onError(Session session, Throwable throwable) {
       LOGGER.error("Hogwarts monitoring session error", throwable);
+      // Removing the listener is important to avoid memory leaks
       removeListener(session);
    }
 
