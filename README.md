@@ -45,7 +45,7 @@ Characters in Hogwarts are teachers or students.
 
 ## Search
 [A simple REST service](src/main/java/org/acme/infinispanclient/CharactersResource.java) is available to query
-characters by id or perform a full-text search on top of the name or the biography. 
+characters by id or perform a full-text search of the name or the biography. 
 
 ## Magic Socket
 [A socket](src/main/java/org/acme/infinispanclient/HogwartsMagicSocket.java) that performs a Continuous Query making it possible to
