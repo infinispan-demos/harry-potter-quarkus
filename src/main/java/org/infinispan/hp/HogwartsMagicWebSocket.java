@@ -62,7 +62,7 @@ public class HogwartsMagicWebSocket {
          }
       };
 
-      // Create a continuous query
+      // Create a Continuous Query
       ContinuousQuery<String, HPMagic> continuousQuery = Search.getContinuousQuery(magic);
 
       // Link the query and the listener
