@@ -40,7 +40,7 @@ public class CharactersResource {
    @Path("/query")
    @Produces(MediaType.TEXT_PLAIN)
    public List<String> searchCharacter(@QueryParam("term") String term) {
-      LOGGER.info("Search term");
+      LOGGER.info("Search by term " + term);
       if(term == null) {
          return Collections.emptyList();
       }
