@@ -18,8 +18,10 @@ Uses Quarkus features, such as
 Quarkus uses [Infinispan Remote Client](http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server).
 You need to have an Infinispan Server running before you run this demo.
 
-Option 1: Use Docker `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
-Option 2: Download and run the server
+### Option 1: Use Docker 
+`docker run -it -p 11222:11222 jboss/infinispan-server:latest`
+
+### Option 2: Download and run the server
 - Download the server from [here](http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip)
 - Unzip the file 
 - Run a standalone server from the installation folder: `./bin/standalone.sh`
