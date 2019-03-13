@@ -99,8 +99,82 @@ from the `target` folder. However you can override these files location at runti
    `./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv`
 
 
-# Run and deploying in Openshift
-`mvn package -Pnative -Dnative-image.docker-build=true`
-TBD
+# OpenShift
+
+In this part we will be deploying the application in OpenShift. 
+We are going to install Infinispan in OpenShift using Operators. To make this possible you need administration rights.
+Operators are supported for OpenShift 4 or 3.11.
+
+## Using MiniShift
+
+### Install MiniShift
+A simple way to deploy locally and test, you can use [MiniShift](https://docs.okd.io/latest/minishift/getting-started/installing.html).
+
+Important: This tutorial user **VirtualBox**, but this can be changed in the [setup file](./minishift/setup-minishift.sh)
+
+Once MiniShift is installed
+
+- `./minishift/setup-minishift.sh`
+- `minishift start`
+
+You should be able to access to the console
+
+```bash
+The server is accessible via web console at:
+https://192.168.99.117:8443/console
+```
+
+### Install Infinispan Cluster
+
+Run `infinispan-cluster.sh`
+
+This file contains all the necessary commands to install the operator and the Infinispan Cluster.
+
+You can access to OpenShift console
+
+![OpenShift web interface](./minishift/OperatorAndCluster.png)
+
+### Build the application
+
+1) Configure `infinispan-client.server-list` property
+
+The application is going to be deployed in OpenShift, and will connect to the Infinispan Cluster that is available.
+
+Today the `quarkus.infinispan-client.server-list` is a build time property. This means that the current version of
+Quarkus does not allow to override the value dynamically. 
+
+Before building the application, change this value so the application will be able to connect to the Infinispan Cluster
+once it will be deployed in OpenShift :
+`quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222`
+
+2) Build the application native, but for docker
+
+`mvn clean package -Pnative -Dnative-image.docker-build=true`
+
+### Deploy the application
+You have two options.
+
+#### Option 1: Use Docker Registry
+An image of the application is available in the public docker hub: 
+`karesti/harry-potter-quarkus:tagname`
+You can deploy an image from the OpenShift web console. 
+
+#### Option 2: Use OpenShift build
+
+```bash 
+oc new-build --binary --name=-oc-harry-potter-quarkus -l app=oc-harry-potter-quarkus
+oc start-build oc-harry-potter-quarkus --from-dir=. --follow
+oc new-app --image-stream=oc-harry-potter-quarkus:latest
+```
+You will see that the application is deployed and the logs can be displayed.
+
+#### Access to the application with the browser
+
+If you want to access to the interface on the browser, you need to expose a service.
+
+Run `oc expose service oc-harry-potter-quarkus` (or another app name)
+
+
+
 
 
