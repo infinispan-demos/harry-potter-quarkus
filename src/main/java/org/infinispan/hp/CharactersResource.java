@@ -1,7 +1,8 @@
 package org.infinispan.hp;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -17,7 +18,8 @@ import org.infinispan.hp.service.CharacterSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path("/harry-potter")
+@Path("/harry-potter/character")
+@Produces(MediaType.APPLICATION_JSON)
 public class CharactersResource {
    private static final Logger LOGGER = LoggerFactory.getLogger(CharactersResource.class.getName());
 
@@ -26,7 +28,6 @@ public class CharactersResource {
 
    @GET
    @Path("/{id}")
-   @Produces(MediaType.TEXT_PLAIN)
    public HPCharacter byId(@PathParam("id") Integer id) {
       LOGGER.info("Search by Id " + id);
       HPCharacter character = searchService.getById(id);
@@ -37,12 +38,25 @@ public class CharactersResource {
    }
 
    @GET
+   @Path("/async/{id}")
+   public CompletionStage<HPCharacter> byIdAsync(@PathParam("id") Integer id) {
+      LOGGER.info("Search by Id Async " + id);
+      return searchService.getByIdAsync(id).whenComplete((c, e) -> {
+         if (e != null) {
+            throw new WebApplicationException("Unexpected error", e, 500);
+         }
+         if (c == null) {
+            throw new WebApplicationException("Character with id of " + id + " does not exist.", 404);
+         }
+      });
+   }
+
+   @GET
    @Path("/query")
-   @Produces(MediaType.TEXT_PLAIN)
-   public List<String> searchCharacter(@QueryParam("term") String term) {
+   public Set<String> searchCharacter(@QueryParam("term") String term) {
       LOGGER.info("Search by term " + term);
-      if(term == null) {
-         return Collections.emptyList();
+      if (term == null) {
+         return Collections.emptySet();
       }
       return searchService.search(term);
    }

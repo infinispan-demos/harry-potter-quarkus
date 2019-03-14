@@ -1,6 +1,8 @@
 package org.infinispan.hp.service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -28,13 +30,17 @@ public class CharacterSearch {
       return characters.get(id);
    }
 
+   public CompletionStage<HPCharacter> getByIdAsync(Integer id) {
+      return characters.getAsync(id);
+   }
+
    /**
     * Performs a simple full-text query on name and bio
     *
     * @param term
     * @return character names
     */
-   public List<String> search(String term) {
+   public Set<String> search(String term) {
       if (characters == null) {
          LOGGER.error("Unable to search... Is He-Who-Must-Not-Be-Named around?");
          throw new IllegalStateException("Characters store is null. Try restarting the application");
@@ -47,7 +53,7 @@ public class CharacterSearch {
             .having("bio").like("%" + term + "%");
 
       List<HPCharacter> characters = qb.build().list();
-      return characters.stream().map(HPCharacter::getName).collect(Collectors.toList());
+      return characters.stream().map(HPCharacter::getName).collect(Collectors.toSet());
    }
 
 }
