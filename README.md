@@ -65,7 +65,7 @@ You will be connected to the monitoring socket. The interface displays some link
 
 ### Tip for docker for mac users
 If you are using docker for mac there is a known issue to connect with the server using the hotrod client.
-Blog post [here](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html]).
+Blog post [here](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).
 
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan 
 Server running in a Docker container:
