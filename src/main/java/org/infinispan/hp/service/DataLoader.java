@@ -32,11 +32,9 @@ public class DataLoader {
    public static final String HP_SPELLS_NAME = "spells";
    public static final String HP_MAGIC_NAME = "magic";
 
-   @Inject
    @ConfigProperty(name = "characters.filename")
    String charactersFileName;
 
-   @Inject
    @ConfigProperty(name = "spells.filename")
    String spellsFileName;
 
