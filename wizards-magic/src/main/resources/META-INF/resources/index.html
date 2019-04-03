@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Harry Potter - Hogwarts Magic Monitoring</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+
+    <style>
+        #log {
+            resize: none;
+            overflow: hidden;
+            background: gray;
+            color: aliceblue;
+            padding: 1em;
+            font-family: Courier;
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-pf pf-purple" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+            <p><strong>Do magic!!</strong></p>
+        </a>
+    </div>
+</nav>
+<div class="container">
+    <form class="form-horizontal" action="/harry-potter/wizard" method="post" content="json/">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="caster">Name</label>
+            <div class="col-sm-9">
+                <input type="text" id="caster" name="caster" class="form-control">
+            </div>
+            <label class="col-sm-3 control-label" for="spell">Spell</label>
+            <div class="col-sm-9">
+                <input type="text" id="spell" name="spell" class="form-control">
+            </div>
+            <label class="col-sm-3 control-label" for="type">Are you ...</label>
+            <div class="col-sm-9">
+                <select id="type" name="type">
+                    <option value="STUDENT">Wizard Student</option>
+                    <option value="TEACHER">Wizard Teacher</option>
+                    <option value="DEATHEATER">Death Eater</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="pf-c-form__group pf-m-action">
+
+            <div class="pf-c-form__actions">
+                <button type="submit" class="pf-c-button pf-m-primary pf-purple">
+                    Cast
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+
+<script type="text/javascript">
+    // Initialize Popovers
+    $(document).ready(function() {
+        $('[data-toggle=popover]').popovers()
+            .on('hidden.bs.popover', function (e) {
+                $(e.target).data('bs.popover').inState.click = false;
+            });
+    });
+</script>
+
+</body>
+
+</html>

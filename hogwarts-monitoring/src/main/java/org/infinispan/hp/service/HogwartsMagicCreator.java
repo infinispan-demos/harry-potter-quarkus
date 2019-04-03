@@ -3,9 +3,9 @@ package org.infinispan.hp.service;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.hp.model.HPMagic;
@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import io.quarkus.infinispan.client.runtime.Remote;
 import io.quarkus.scheduler.Scheduled;
 
-@ApplicationScoped
 public class HogwartsMagicCreator {
    private static final Logger LOGGER = LoggerFactory.getLogger(HogwartsMagicCreator.class.getName());
 
@@ -32,6 +31,9 @@ public class HogwartsMagicCreator {
    @Remote(DataLoader.HP_MAGIC_NAME)
    RemoteCache<String, HPMagic> magic;
 
+   @ConfigProperty(name = "create.magic")
+   Boolean createMagic;
+
    private Random randomCharacters = new Random();
    private Random randomSpells = new Random();
 
@@ -40,11 +42,17 @@ public class HogwartsMagicCreator {
     * 3 seconds
     */
    @Scheduled(every = "3s")
-   void executeMagic() {
+   public void executeMagic() {
       if (illegalState()) {
          throw new IllegalStateException("Unable to perform magic at Hogwarts ... Is You-Know-Who around?");
       }
 
+      if (createMagic) {
+         magicIsHappening();
+      }
+   }
+
+   private void magicIsHappening() {
       LOGGER.info("... magic is happening ...");
 
       HPCharacter character = getRandomHpCharacter();

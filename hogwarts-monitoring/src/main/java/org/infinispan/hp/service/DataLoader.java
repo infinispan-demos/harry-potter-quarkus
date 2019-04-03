@@ -38,6 +38,9 @@ public class DataLoader {
    @ConfigProperty(name = "spells.filename")
    String spellsFileName;
 
+   @ConfigProperty(name = "clean.magic")
+   Boolean clean;
+
    @Inject
    RemoteCacheManager cacheManager;
 
@@ -54,7 +57,9 @@ public class DataLoader {
       LOGGER.info("Existing stores are " + cacheManager.getCacheNames().toString());
 
       // Cleanup data
-      cleanupCaches(characters, spells, magic);
+      if (clean) {
+         cleanupCaches(characters, spells, magic);
+      }
 
       // Load Ref data
       loadData(characters, spells);
