@@ -17,7 +17,7 @@ public class WizardResourceTest {
    @Test
    public void testHeath() {
       given()
-            .when().get("/harry-potter/wizard")
+            .when().get("/harry-potter/magic")
             .then()
             .statusCode(200)
             .body(is("Wizard Resource is ready for magic!"));
@@ -29,7 +29,7 @@ public class WizardResourceTest {
             .body("{\"caster\": \"Harry Potter\", \"spell\": \"Expelliarmus\", \"type\": \"STUDENT\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
             .when()
-            .post("/harry-potter/wizard")
+            .post("/harry-potter/magic")
             .then()
             .statusCode(201);
    }

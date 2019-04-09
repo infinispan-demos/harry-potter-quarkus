@@ -9,7 +9,7 @@ public class MagicData {
    private WizardType type;
 
    enum WizardType {
-      STUDENT, TEACHER, DEATHEATER
+      STUDENT, TEACHER, DEATHEATER, WIZARD
    }
 
    public MagicData() {
