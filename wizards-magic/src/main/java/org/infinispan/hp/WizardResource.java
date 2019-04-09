@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import io.quarkus.infinispan.client.runtime.Remote;
 
-@Path("/harry-potter/wizard")
+@Path("/harry-potter/magic")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class WizardResource {

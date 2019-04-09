@@ -1,81 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>Harry Potter - Hogwarts Magic Monitoring</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+    <meta charset="utf-8"/>
+    <title>Magic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("MagicModule", []);
 
-    <style>
-        #log {
-            resize: none;
-            overflow: hidden;
-            background: gray;
-            color: aliceblue;
-            padding: 1em;
-            font-family: Courier;
-            font-size: small;
+      app.controller("MagicModuleController", function ($scope, $http) {
+        $scope.magic = [];
+
+        $scope.form = {
+          caster: "",
+          spell: "",
+          type: "WIZARD"
+        };
+
+        //HTTP POST methods
+        $scope.cast = function () {
+          var data = { "caster": $scope.form.caster, "spell": $scope.form.spell, "type": $scope.form.type };
+
+          $http({
+            method: "POST",
+            url: '/harry-potter/magic',
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(_success, _error);
+        };
+
+        function _success(response) {
+          _clearForm();
         }
-    </style>
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+
+        function _clearForm() {
+          $scope.form.caster = "";
+          $scope.form.spell = "";
+          $scope.form.type = "WIZARD";
+        }
+      });
+    </script>
 </head>
+<body ng-app="MagicModule" ng-controller="MagicModuleController">
 
-<body>
-<nav class="navbar navbar-default navbar-pf pf-purple" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-            <p><strong>Do magic!!</strong></p>
-        </a>
-    </div>
-</nav>
 <div class="container">
-    <form class="form-horizontal" action="/harry-potter/wizard" method="post" content="json/">
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="caster">Name</label>
-            <div class="col-sm-9">
-                <input type="text" id="caster" name="caster" class="form-control">
-            </div>
-            <label class="col-sm-3 control-label" for="spell">Spell</label>
-            <div class="col-sm-9">
-                <input type="text" id="spell" name="spell" class="form-control">
-            </div>
-            <label class="col-sm-3 control-label" for="type">Are you ...</label>
-            <div class="col-sm-9">
-                <select id="type" name="type">
-                    <option value="STUDENT">Wizard Student</option>
-                    <option value="TEACHER">Wizard Teacher</option>
-                    <option value="DEATHEATER">Death Eater</option>
-                </select>
-            </div>
+    <h1>Cast your Spells!!</h1>
 
+    <form ng-submit="cast()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Your name" ng-model="form.caster" size="60"/></div>
         </div>
-        <div class="pf-c-form__group pf-m-action">
-
-            <div class="pf-c-form__actions">
-                <button type="submit" class="pf-c-button pf-m-primary pf-purple">
-                    Cast
-                </button>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Your spell" ng-model="form.spell" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Wizard Teacher <input name="type" type="radio" ng-model="form.type" value="TEACHER"/>
+            </div>
+            <div class="col-3">
+                Wizard Student <input name="type" type="radio" ng-model="form.type" value="STUDENT"/>
             </div>
         </div>
+        <div class="row">
+            <div class="col-3">
+                Just a Wizard <input name="type" type="radio" ng-model="form.type" value="WIZARD"/>
+            </div>
+            <div class="col-3">
+                Death Eater <input name="type" type="radio" ng-model="form.type" value="DEATHEATER"/>
+            </div>
+        </div>
+        <input type="submit" value="Cast!"/>
     </form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
-
-<script type="text/javascript">
-    // Initialize Popovers
-    $(document).ready(function() {
-        $('[data-toggle=popover]').popovers()
-            .on('hidden.bs.popover', function (e) {
-                $(e.target).data('bs.popover').inState.click = false;
-            });
-    });
-</script>
-
 </body>
-
 </html>
