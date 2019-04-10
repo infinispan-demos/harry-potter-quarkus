@@ -137,7 +137,7 @@ This file contains all the necessary commands to install the operator and the In
 
 You can access to OpenShift console
 
-image:/minishift/OperatorAndCluster.png[OpenShift web interface]
+image:/images/OperatorAndCluster.png[OpenShift web interface]
 
 ==== Build the application
 
