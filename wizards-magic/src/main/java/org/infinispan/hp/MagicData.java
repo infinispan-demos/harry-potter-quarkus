@@ -5,7 +5,7 @@ import java.util.Objects;
 public class MagicData {
 
    private String caster;
-   private String spell;
+   private String curse;
    private WizardType type;
 
    enum WizardType {
@@ -24,12 +24,12 @@ public class MagicData {
       this.caster = caster;
    }
 
-   public String getSpell() {
-      return spell;
+   public String getCurse() {
+      return curse;
    }
 
-   public void setSpell(String spell) {
-      this.spell = spell;
+   public void setCurse(String curse) {
+      this.curse = curse;
    }
 
    public String getType() {
@@ -50,20 +50,20 @@ public class MagicData {
       if (o == null || getClass() != o.getClass()) return false;
       MagicData magicData = (MagicData) o;
       return Objects.equals(caster, magicData.caster) &&
-            Objects.equals(spell, magicData.spell) &&
+            Objects.equals(curse, magicData.curse) &&
             type == magicData.type;
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(caster, spell, type);
+      return Objects.hash(caster, curse, type);
    }
 
    @Override
    public String toString() {
       return "MagicData{" +
             "caster='" + caster + '\'' +
-            ", spell='" + spell + '\'' +
+            ", curse='" + curse + '\'' +
             ", type=" + type +
             '}';
    }

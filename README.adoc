@@ -34,8 +34,11 @@ You need to have an Infinispan Server running before you run this demo.
 
 == Harry-Potter demo
 
-The demo will load characters and spells. Characters can execute spells, and we want to monitor who is in Hogwarts and 
-performing magic.
+The demo has two applications.
+
+== Hogwarts Monitoring
+
+Characters can execute spells, and we want to monitor who is in Hogwarts and performing magic.
 
 - A `Character` has an id, name, biography and type (other, student, teacher, muggle).
 - A `Spell` has an id, name and description.
@@ -49,18 +52,21 @@ This is done at startup time
 === Magic is going on
 link:src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java[Hogwarts Magic Creator] is going to emulate
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
-Characters in Hogwarts are teachers or students. 
+Characters in Hogwarts are teachers or students.
+
+To disable this service, set ```create.magic``` property to ```false``` in the ```application.properties```.
+
 
 === Search
 link:src/main/java/org/infinispan/hp/CharactersResource.java[A simple REST service] is available to query
-characters by id or perform a full-text search of the name or the biography. 
+characters by id or perform a full-text search of the name or the biography.
 
 === Magic Socket
 link:src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
 The continuous query does not have to go to the server and it is all stored in the client application itself. http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous[Read more about these queries in the official Infinispan documentation].
 
-== Run the demo in dev mode
+=== Run Hogwarts Monitoring in dev mode
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
 Go to `http://localhost:8081` and monitor the magic!
@@ -82,14 +88,14 @@ Server running in a Docker container:
 
 - `mvn clean package`
 - `cd target`
-- `java -jar harry-potter-quarkus-runner.jar`
+- `java -jar hogwarts-monitoring-runner.jar`
 
 == Run the demo in native mode
 Compile the application in native mode:
 
 - `mvn package -Pnative`
 - `cd target`
-- `./harry-potter-quarkus-runner`
+- `./hogwarts-monitoring-runner`
 
 === Loaded data
 Maven copies `hp_characters.csv` and `hp_spells.csv`to the target directory, that's why it's easier to run the executables
@@ -97,16 +103,27 @@ from the `target` folder. However you can override these files location at runti
 
 - Running the jar
  
-   java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv harry-potter-quarkus-runner.jar
+   java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv hogwarts-monitoring-runner.jar
 
 - Running the native
  
-   ./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv
+   ./hogwarts-monitoring-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv
+
+## Wizards Magic
+
+THe `wizards-magic` application is a simple web application that allows to curse!
+
+Run this application as explained above. The application will be available in
+`http://localhost:8082`
+
+A simple form will be displayed. You can add you name, pick a curse and tell which kind of Wizard you are.
+If the Hogwarts monitoring is running, you should be able to see your curse displayed... If you chose to be
+a teacher or a student, of course!
 
 
 == OpenShift
 
-In this part we will be deploying the application in OpenShift. 
+In this part we will be deploying both modules in OpenShift.
 We are going to install Infinispan in OpenShift using Operators. To make this possible you need administration rights.
 Operators are supported for OpenShift 4 or 3.11.
 
@@ -139,7 +156,9 @@ You can access to OpenShift console
 
 image:/images/OperatorAndCluster.png[OpenShift web interface]
 
-==== Build the application
+==== Build each application
+
+For both applications - hogwarts-monitoring and wizards-magic - execute the following steps:
 
 1) Configure `infinispan-client.server-list` property
 
@@ -152,7 +171,7 @@ Before building the application, change this value so the application will be ab
 once it will be deployed in OpenShift :
 `quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222`
 
-2) Build the application native, but for docker
+2) Build each application native, but for docker
 
 `mvn clean package -Pnative -Dnative-image.docker-build=true`
 
@@ -160,24 +179,32 @@ once it will be deployed in OpenShift :
 You have two options.
 
 ===== Option 1: Use Docker Registry
-An image of the application is available in the public docker hub: 
-`karesti/harry-potter-quarkus:tagname`
-You can deploy an image from the OpenShift web console. 
+An image of the applications are available in the public docker hub:
+`karesti/hogwarts-monitoring:tagname`
+`karesti/wizards-magic:tagname`
+You can deploy an image from the OpenShift web console.
 
 ===== Option 2: Use OpenShift build
 
 ```bash 
-oc new-build --binary --name=-oc-harry-potter-quarkus -l app=oc-harry-potter-quarkus
-oc start-build oc-harry-potter-quarkus --from-dir=. --follow
-oc new-app --image-stream=oc-harry-potter-quarkus:latest
+oc new-build --binary --name=-oc-hogwarts-monitoring -l app=oc-hogwarts-monitoring
+oc start-build oc-hogwarts-monitoring --from-dir=. --follow
+oc new-app --image-stream=oc-hogwarts-monitoring:latest
 ```
-You will see that the application is deployed and the logs can be displayed.
 
-===== Access to the application with the browser
+```bash
+oc new-build --binary --name=-oc-wizards-magic -l app=oc-wizards-magic
+oc start-build oc-wizards-magic --from-dir=. --follow
+oc new-app --image-stream=oc-wizards-magic:latest
+```
+You will see that the applications are deployed and the logs can be displayed.
 
-If you want to access to the interface on the browser, you need to expose a service.
+===== Access to the applications with the browser
 
-Run `oc expose service oc-harry-potter-quarkus` (or another app name)
+If you want to access to the interfaces on the browser, you need to expose a service.
+
+Run `oc expose service oc-hogwarts-monitoring` (or another app name)
+Run `oc expose service oc-wizards-magic` (or another app name)
 
 
 

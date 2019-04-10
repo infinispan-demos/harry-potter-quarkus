@@ -40,7 +40,7 @@ public class WizardResource {
    public Response add(MagicData magic) {
       String id = UUID.randomUUID().toString();
       LOGGER.info("Magic is going on ..." +  magic);
-      magicStore.putAsync(id, new HPMagic(id, magic.getCaster(), magic.getSpell(), magic.isInHogwarts()));
+      magicStore.putAsync(id, new HPMagic(id, magic.getCaster(), magic.getCurse(), magic.isInHogwarts()));
       return Response.ok().status(201).build();
    }
 }
