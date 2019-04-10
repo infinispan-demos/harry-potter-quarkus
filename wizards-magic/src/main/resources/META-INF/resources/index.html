@@ -14,13 +14,13 @@
 
         $scope.form = {
           caster: "",
-          spell: "",
+          curse: "Crucio",
           type: "WIZARD"
         };
 
         //HTTP POST methods
         $scope.cast = function () {
-          var data = { "caster": $scope.form.caster, "spell": $scope.form.spell, "type": $scope.form.type };
+          var data = { "caster": $scope.form.caster, "curse": $scope.form.curse, "type": $scope.form.type };
 
           $http({
             method: "POST",
@@ -42,7 +42,7 @@
 
         function _clearForm() {
           $scope.form.caster = "";
-          $scope.form.spell = "";
+          $scope.form.curse = "Crucio";
           $scope.form.type = "WIZARD";
         }
       });
@@ -51,14 +51,30 @@
 <body ng-app="MagicModule" ng-controller="MagicModuleController">
 
 <div class="container">
-    <h1>Cast your Spells!!</h1>
+    <h1>Curse, it's free!!</h1>
 
     <form ng-submit="cast()">
         <div class="row">
-            <div class="col-6"><input type="text" placeholder="Your name" ng-model="form.caster" size="60"/></div>
+            <div class="col-6">
+                <label>Caster name</label>
+                <input type="text" placeholder="Your name" ng-model="form.caster" size="60"/></div>
         </div>
         <div class="row">
-            <div class="col-6"><input type="text" placeholder="Your spell" ng-model="form.spell" size="60"/></div>
+            <div class="col-6">
+                <label>Curse</label>
+                <select name="curse" ng-model="form.curse">
+                    <option value="Conjunctivitis">Conjunctivitis</option>
+                    <option value="Cornflake Skin">Cornflake Skin</option>
+                    <option value="Locomotor Mortis">Locomotor Mortis</option>
+                    <option value="Mimblewimble">Mimblewimble</option>
+                    <option value="Fiendfyre">Fiendfyre</option>
+                    <option value="Furnunculus">Furnunculus</option>
+                    <option value="Crucio">Crucio</option>
+                    <option value="Horcrux">Horcrux</option>
+                    <option value="Imperio">Imperio</option>
+                    <option value="Avada Kedavra">Avada Kedavra</option>
+                </select>
+            </div>
         </div>
         <div class="row">
             <div class="col-3">
