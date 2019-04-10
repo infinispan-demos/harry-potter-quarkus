@@ -15,14 +15,14 @@ Uses Quarkus features, such as
 
 # Before running the demo
 
-Quarkus uses [Infinispan Remote Client](http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server).
+Quarkus uses http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server[Infinispan Remote Client].
 You need to have an Infinispan Server running before you run this demo.
 
 ### Option 1: Use Docker 
 `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
 
 ### Option 2: Download and run the server
-- Download the server from [here](http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip)
+- Download the server from http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip[here]
 - Unzip the file 
 - Run a standalone server from the installation folder: `./bin/standalone.sh`
 
@@ -41,19 +41,18 @@ performing magic.
 This is done at startup time
 
 ## Magic is going on
-[Hogwarts Magic Creator](src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java) is going to emulate
+link:src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java[Hogwarts Magic Creator] is going to emulate
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students. 
 
 ## Search
-[A simple REST service](src/main/java/org/infinispan/hp/CharactersResource.java) is available to query
+link:src/main/java/org/infinispan/hp/CharactersResource.java[A simple REST service] is available to query
 characters by id or perform a full-text search of the name or the biography. 
 
 ## Magic Socket
-[A socket](src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java) that performs a Continuous Query making it possible to
+link:src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
-The continuous query does not have to go to the server and it is all stored in the client application itself. [Read more 
-about these queries in the official Infinispan documentation](http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous).
+The continuous query does not have to go to the server and it is all stored in the client application itself. http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous[Read more about these queries in the official Infinispan documentation].
 
 # Run the demo in dev mode
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
@@ -65,7 +64,7 @@ You will be connected to the monitoring socket. The interface displays some link
 
 ### Tip for docker for mac users
 If you are using docker for mac there is a known issue to connect with the server using the hotrod client.
-Blog post [here](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).
+Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
 
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan 
 Server running in a Docker container:
@@ -92,11 +91,11 @@ from the `target` folder. However you can override these files location at runti
 
 - Running the jar
  
-   `java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv harry-potter-quarkus-runner.jar`
+   java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv harry-potter-quarkus-runner.jar
 
 - Running the native
  
-   `./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv`
+   ./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv
 
 
 # OpenShift
@@ -108,9 +107,9 @@ Operators are supported for OpenShift 4 or 3.11.
 ## Using MiniShift
 
 ### Install MiniShift
-A simple way to deploy locally and test, you can use [MiniShift](https://docs.okd.io/latest/minishift/getting-started/installing.html).
+A simple way to deploy locally and test, you can use https://docs.okd.io/latest/minishift/getting-started/installing.html[MiniShift].
 
-Important: This tutorial user **VirtualBox**, but this can be changed in the [setup file](./minishift/setup-minishift.sh)
+Important: This tutorial user **VirtualBox**, but this can be changed in the link:/minishift/setup-minishift.sh[setup file]
 
 Once MiniShift is installed
 
@@ -132,7 +131,7 @@ This file contains all the necessary commands to install the operator and the In
 
 You can access to OpenShift console
 
-![OpenShift web interface](./minishift/OperatorAndCluster.png)
+image:/minishift/OperatorAndCluster.png[OpenShift web interface]
 
 ### Build the application
 
