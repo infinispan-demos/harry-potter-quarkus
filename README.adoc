@@ -74,15 +74,10 @@ Go to `http://localhost:8081` and monitor the magic!
 You will be connected to the monitoring socket. The interface displays some links to display a character by id and
  perform a full-text search.
 
-=== Tip for docker for mac users
-If you are using docker for mac there is a known issue to connect with the server using the hotrod client.
+WARNING: Docker for mac users. There is a known issue to connect with the server using the hotrod client.
 Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
-
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan 
-Server running in a Docker container:
-
-1) Create `hotrod-client.properties` file under `resources/META-INF` folder
-2) Configure `infinispan.client.hotrod.client_intelligence=BASIC`
+Server running in a Docker container, create `hotrod-client.properties` file under `resources/META-INF` folder and configure `infinispan.client.hotrod.client_intelligence=BASIC`
 
 == Run the demo with jar
 
