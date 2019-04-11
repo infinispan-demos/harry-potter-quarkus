@@ -1,0 +1,17 @@
+anguage: java
+install: true
+branches:
+  only:
+    - master
+    - /^\d+\.\d+$/
+cache:
+  directories:
+    - $HOME/.m2
+before_cache:
+  - rm -rf $HOME/.m2/repository/org/infinispan/
+jobs:
+  include:
+    - stage: test
+      name: "Unit tests - OracleJDK 8"
+      script: mvn -B -DtestLogLevel=OFF test
+      jdk: oraclejdk8
