@@ -448,37 +448,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_option_2_download_and_run_the_server">Option 2: Download and run the server</a></li>
 </ul>
 </li>
-<li><a href="#_harry_potter_demo">Harry-Potter demo</a>
+<li><a href="#_harry_potter_demo">Harry-Potter demo</a></li>
+<li><a href="#_hogwarts_monitoring">Hogwarts Monitoring</a>
 <ul class="sectlevel2">
 <li><a href="#_data_loading">Data loading</a></li>
 <li><a href="#_magic_is_going_on">Magic is going on</a></li>
 <li><a href="#_search">Search</a></li>
 <li><a href="#_magic_socket">Magic Socket</a></li>
-</ul>
-</li>
-<li><a href="#_run_the_demo_in_dev_mode">Run the demo in dev mode</a>
-<ul class="sectlevel2">
-<li><a href="#_tip_for_docker_for_mac_users">Tip for docker for mac users</a></li>
-</ul>
-</li>
-<li><a href="#_run_the_demo_with_jar">Run the demo with jar</a></li>
-<li><a href="#_run_the_demo_in_native_mode">Run the demo in native mode</a>
-<ul class="sectlevel2">
+<li><a href="#_run_hogwarts_monitoring_in_dev_mode">Run Hogwarts Monitoring in dev mode</a></li>
 <li><a href="#_loaded_data">Loaded data</a></li>
 </ul>
 </li>
+<li><a href="#_wizards_magic">Wizards Magic</a></li>
 <li><a href="#_openshift">OpenShift</a>
 <ul class="sectlevel2">
 <li><a href="#_using_minishift">Using MiniShift</a>
 <ul class="sectlevel3">
 <li><a href="#_install_minishift">Install MiniShift</a></li>
 <li><a href="#_install_infinispan_cluster">Install Infinispan Cluster</a></li>
-<li><a href="#_build_the_application">Build the application</a></li>
+</ul>
+</li>
+<li><a href="#_build_each_application">Build each application</a>
+<ul class="sectlevel4">
+<li><a href="#_configure_infinispan_client_server_list_property">Configure infinispan-client.server-list property</a></li>
+<li><a href="#_build_each_application_native_but_for_docker">Build each application native, but for docker</a></li>
 <li><a href="#_deploy_the_application">Deploy the application</a>
 <ul class="sectlevel4">
 <li><a href="#_option_1_use_docker_registry">Option 1: Use Docker Registry</a></li>
 <li><a href="#_option_2_use_openshift_build">Option 2: Use OpenShift build</a></li>
-<li><a href="#_access_to_the_application_with_the_browser">Access to the application with the browser</a></li>
+<li><a href="#_access_to_the_applications_with_the_browser">Access to the applications with the browser</a></li>
 </ul>
 </li>
 </ul>
@@ -493,19 +491,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_quarkus_demo_infinispan_client">Quarkus demo: Infinispan Client</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This example showcases how to use Infinispan client with Quarkus.
-* Create stores dynamically
-* Simple get/put operations
-* Full-text query
-* Continuous query</p>
+<p>This example showcases how to use Infinispan client with Quarkus.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create stores dynamically</p>
+</li>
+<li>
+<p>Simple get/put operations</p>
+</li>
+<li>
+<p>Full-text query</p>
+</li>
+<li>
+<p>Continuous query</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Uses Quarkus features, such as
-* REST web-service
-* Web Socket
-* Task Scheduling
-* Application properties
-* Application lifecycle events listeners</p>
+<p>Uses Quarkus features, such as</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>REST web-service</p>
+</li>
+<li>
+<p>Web Socket</p>
+</li>
+<li>
+<p>Task Scheduling</p>
+</li>
+<li>
+<p>Application properties</p>
+</li>
+<li>
+<p>Application lifecycle events listeners</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -544,8 +568,15 @@ You need to have an Infinispan Server running before you run this demo.</p>
 <h2 id="_harry_potter_demo">Harry-Potter demo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The demo will load characters and spells. Characters can execute spells, and we want to monitor who is in Hogwarts and
-performing magic.</p>
+<p>The demo has two applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hogwarts_monitoring">Hogwarts Monitoring</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Characters can execute spells, and we want to monitor who is in Hogwarts and performing magic.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -574,6 +605,18 @@ This is done at startup time</p>
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To disable this service, set <code>create.magic</code> property to <code>false</code> in the <code>application.properties</code>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_search">Search</h3>
@@ -590,73 +633,50 @@ monitor which characters in Hogwarts are currently performing magic.
 The continuous query does not have to go to the server and it is all stored in the client application itself. <a href="http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous">Read more about these queries in the official Infinispan documentation</a>.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_run_the_demo_in_dev_mode">Run the demo in dev mode</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_run_hogwarts_monitoring_in_dev_mode">Run Hogwarts Monitoring in dev mode</h3>
 <div class="paragraph">
 <p>To run in development mode, just run <code>mvn clean compile quarkus:dev</code>. This allows for hot swapping the application, so you can tweak parts of it
-and it will automatically redeploy.
-Go to <code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code> and monitor the magic!</p>
+and it will automatically redeploy.</p>
+</div>
+<div class="paragraph">
+<p>Go to <code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code> and monitor the magic!</p>
 </div>
 <div class="paragraph">
 <p>You will be connected to the monitoring socket. The interface displays some links to display a character by id and
  perform a full-text search.</p>
 </div>
-<div class="sect2">
-<h3 id="_tip_for_docker_for_mac_users">Tip for docker for mac users</h3>
-<div class="paragraph">
-<p>If you are using docker for mac there is a known issue to connect with the server using the hotrod client.
-Blog post <a href="https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html">here</a>.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Docker for mac users. There is a known issue to connect with the server using the hotrod client.
+Blog post <a href="https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html">here</a>.
+You won&#8217;t need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan
+Server running in a Docker container, create <code>hotrod-client.properties</code> file under <code>resources/META-INF</code> folder and configure <code>infinispan.client.hotrod.client_intelligence=BASIC</code>
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>You won&#8217;t need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan
-Server running in a Docker container:</p>
-</div>
-<div class="paragraph">
-<p>1) Create <code>hotrod-client.properties</code> file under <code>resources/META-INF</code> folder
-2) Configure <code>infinispan.client.hotrod.client_intelligence=BASIC</code></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_run_the_demo_with_jar">Run the demo with jar</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>mvn clean package</code></p>
-</li>
-<li>
-<p><code>cd target</code></p>
-</li>
-<li>
-<p><code>java -jar harry-potter-quarkus-runner.jar</code></p>
-</li>
-</ul>
+<div class="literalblock">
+<div class="title">Build and run the demo with jar</div>
+<div class="content">
+<pre>mvn clean package
+cd target
+java -jar hogwarts-monitoring-runner.jar</pre>
 </div>
 </div>
+<div class="literalblock">
+<div class="title">Build and run the application in native mode</div>
+<div class="content">
+<pre>mvn package -Pnative
+cd target
+./hogwarts-monitoring-runner</pre>
 </div>
-<div class="sect1">
-<h2 id="_run_the_demo_in_native_mode">Run the demo in native mode</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Compile the application in native mode:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>mvn package -Pnative</code></p>
-</li>
-<li>
-<p><code>cd target</code></p>
-</li>
-<li>
-<p><code>./harry-potter-quarkus-runner</code></p>
-</li>
-</ul>
 </div>
 <div class="sect2">
 <h3 id="_loaded_data">Loaded data</h3>
@@ -664,26 +684,35 @@ Server running in a Docker container:</p>
 <p>Maven copies <code>hp_characters.csv</code> and <code>hp_spells.csv`to the target directory, that&#8217;s why it&#8217;s easier to run the executables
 from the `target</code> folder. However you can override these files location at runtime.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Running the jar</p>
 <div class="literalblock">
+<div class="title">Running the jar</div>
 <div class="content">
-<pre>java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv harry-potter-quarkus-runner.jar</pre>
+<pre>java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv hogwarts-monitoring-runner.jar</pre>
 </div>
 </div>
-</li>
-<li>
-<p>Running the native</p>
 <div class="literalblock">
+<div class="title">Running the native</div>
 <div class="content">
-<pre>./harry-potter-quarkus-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv</pre>
+<pre>./hogwarts-monitoring-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv</pre>
 </div>
 </div>
-</li>
-</ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wizards_magic">Wizards Magic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>THe <code>wizards-magic</code> application is a simple web application that allows to curse!</p>
+</div>
+<div class="paragraph">
+<p>Run this application as explained above. The application will be available in
+<code><a href="http://localhost:8082" class="bare">http://localhost:8082</a></code></p>
+</div>
+<div class="paragraph">
+<p>A simple form will be displayed. You can add you name, pick a curse and tell which kind of Wizard you are.
+If the Hogwarts monitoring is running, you should be able to see your curse displayed&#8230;&#8203; If you chose to be
+a teacher or a student, of course!</p>
 </div>
 </div>
 </div>
@@ -691,7 +720,7 @@ from the `target</code> folder. However you can override these files location at
 <h2 id="_openshift">OpenShift</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this part we will be deploying the application in OpenShift.
+<p>In this part we will be deploying both modules in OpenShift.
 We are going to install Infinispan in OpenShift using Operators. To make this possible you need administration rights.
 Operators are supported for OpenShift 4 or 3.11.</p>
 </div>
@@ -708,23 +737,20 @@ Operators are supported for OpenShift 4 or 3.11.</p>
 <div class="paragraph">
 <p>Once MiniShift is installed</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>./minishift/setup-minishift.sh</code></p>
-</li>
-<li>
-<p><code>minishift start</code></p>
-</li>
-</ul>
+<div class="literalblock">
+<div class="title">Run Minishift</div>
+<div class="content">
+<pre>&gt; ./minishift/setup-minishift.sh
+&gt; minishift start</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>You should be able to access to the console</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
+<div class="title">The server is accessible via web console</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>The server is accessible via web console at:
-https://192.168.99.117:8443/console</code></pre>
+<pre>https://192.168.99.117:8443/console</pre>
 </div>
 </div>
 </div>
@@ -743,11 +769,14 @@ https://192.168.99.117:8443/console</code></pre>
 <p><span class="image"><img src="/images/OperatorAndCluster.png" alt="OpenShift web interface"></span></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_build_the_application">Build the application</h4>
-<div class="paragraph">
-<p>1) Configure <code>infinispan-client.server-list</code> property</p>
 </div>
+<div class="sect2">
+<h3 id="_build_each_application">Build each application</h3>
+<div class="paragraph">
+<p>For both applications - hogwarts-monitoring and wizards-magic - execute the following steps:</p>
+</div>
+<div class="sect4">
+<h5 id="_configure_infinispan_client_server_list_property">Configure infinispan-client.server-list property</h5>
 <div class="paragraph">
 <p>The application is going to be deployed in OpenShift, and will connect to the Infinispan Cluster that is available.</p>
 </div>
@@ -757,14 +786,20 @@ Quarkus does not allow to override the value dynamically.</p>
 </div>
 <div class="paragraph">
 <p>Before building the application, change this value so the application will be able to connect to the Infinispan Cluster
-once it will be deployed in OpenShift :
-<code>quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222</code></p>
+once it will be deployed in OpenShift :</p>
 </div>
-<div class="paragraph">
-<p>2) Build the application native, but for docker</p>
+<div class="literalblock">
+<div class="content">
+<pre>quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222</pre>
 </div>
-<div class="paragraph">
-<p><code>mvn clean package -Pnative -Dnative-image.docker-build=true</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_build_each_application_native_but_for_docker">Build each application native, but for docker</h4>
+<div class="literalblock">
+<div class="content">
+<pre>mvn clean package -Pnative -Dnative-image.docker-build=true</pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -775,31 +810,55 @@ once it will be deployed in OpenShift :
 <div class="sect4">
 <h5 id="_option_1_use_docker_registry">Option 1: Use Docker Registry</h5>
 <div class="paragraph">
-<p>An image of the application is available in the public docker hub:
-<code>karesti/harry-potter-quarkus:tagname</code>
-You can deploy an image from the OpenShift web console.</p>
+<p>An image of the applications are available in the public docker hub:</p>
+</div>
+<div class="literalblock">
+<div class="title">docker images</div>
+<div class="content">
+<pre>karesti/hogwarts-monitoring:tagname
+karesti/wizards-magic:tagname</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can deploy an image from the OpenShift web console.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_option_2_use_openshift_build">Option 2: Use OpenShift build</h5>
-<div class="listingblock">
+<div class="literalblock">
+<div class="title">hogwarts-monitoring</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>oc new-build --binary --name<span class="tok-o">=</span>-oc-harry-potter-quarkus -l <span class="tok-nv">app</span><span class="tok-o">=</span>oc-harry-potter-quarkus
-oc start-build oc-harry-potter-quarkus --from-dir<span class="tok-o">=</span>. --follow
-oc new-app --image-stream<span class="tok-o">=</span>oc-harry-potter-quarkus:latest</code></pre>
+<pre>oc new-build --binary --name=-oc-hogwarts-monitoring -l app=oc-hogwarts-monitoring
+oc start-build oc-hogwarts-monitoring --from-dir=. --follow
+oc new-app --image-stream=oc-hogwarts-monitoring:latest</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="title">wizards-magic</div>
+<div class="content">
+<pre>oc new-build --binary --name=-oc-wizards-magic -l app=oc-wizards-magic
+oc start-build oc-wizards-magic --from-dir=. --follow
+oc new-app --image-stream=oc-wizards-magic:latest</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You will see that the application is deployed and the logs can be displayed.</p>
+<p>You will see that the applications are deployed and the logs can be displayed.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_access_to_the_application_with_the_browser">Access to the application with the browser</h5>
+<h5 id="_access_to_the_applications_with_the_browser">Access to the applications with the browser</h5>
 <div class="paragraph">
-<p>If you want to access to the interface on the browser, you need to expose a service.</p>
+<p>If you want to access to the interfaces on the browser, you need to expose a service.</p>
 </div>
-<div class="paragraph">
-<p>Run <code>oc expose service oc-harry-potter-quarkus</code> (or another app name)</p>
+<div class="literalblock">
+<div class="content">
+<pre>oc expose service oc-hogwarts-monitoring (or another app name)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>oc expose service oc-wizards-magic (or another app name)</pre>
+</div>
 </div>
 </div>
 </div>
@@ -809,79 +868,8 @@ oc new-app --image-stream<span class="tok-o">=</span>oc-harry-potter-quarkus:lat
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-10 16:34:40 +0200
+Last updated 2019-04-11 13:10:21 +0200
 </div>
 </div>
-<style>
-pre.pygments .hll { background-color: #ffffcc }
-pre.pygments  { background: #f8f8f8; }
-pre.pygments .tok-c { color: #408080; font-style: italic } /* Comment */
-pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
-pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
-pre.pygments .tok-o { color: #666666 } /* Operator */
-pre.pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-pre.pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
-pre.pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
-pre.pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-pre.pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
-pre.pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
-pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
-pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
-pre.pygments .tok-gr { color: #FF0000 } /* Generic.Error */
-pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
-pre.pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
-pre.pygments .tok-go { color: #888888 } /* Generic.Output */
-pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
-pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
-pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
-pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
-pre.pygments .tok-m { color: #666666 } /* Literal.Number */
-pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
-pre.pygments .tok-na { color: #7D9029 } /* Name.Attribute */
-pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
-pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
-pre.pygments .tok-no { color: #880000 } /* Name.Constant */
-pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
-pre.pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
-pre.pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
-pre.pygments .tok-nl { color: #A0A000 } /* Name.Label */
-pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
-pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
-pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
-pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
-pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
-pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
-pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
-pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
-pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
-pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
-pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
-pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
-pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
-pre.pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
-pre.pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
-pre.pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
-pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
-pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
-pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
-pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
-pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
-pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
-pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
-pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
-pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
-</style>
 </body>
 </html>
