@@ -7,12 +7,14 @@
 == Quarkus demo: Infinispan Client
 
 This example showcases how to use Infinispan client with Quarkus.
+
 * Create stores dynamically
 * Simple get/put operations
 * Full-text query
 * Continuous query
 
 Uses Quarkus features, such as
+
 * REST web-service
 * Web Socket
 * Task Scheduling
@@ -54,7 +56,7 @@ link:src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java[Hogwarts 
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students.
 
-To disable this service, set ```create.magic``` property to ```false``` in the ```application.properties```.
+TIP: To disable this service, set `create.magic` property to `false` in the `application.properties`.
 
 
 === Search
@@ -69,39 +71,36 @@ The continuous query does not have to go to the server and it is all stored in t
 === Run Hogwarts Monitoring in dev mode
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
+
 Go to `http://localhost:8081` and monitor the magic!
 
 You will be connected to the monitoring socket. The interface displays some links to display a character by id and
  perform a full-text search.
 
-WARNING: Docker for mac users. There is a known issue to connect with the server using the hotrod client.
+IMPORTANT: Docker for mac users. There is a known issue to connect with the server using the hotrod client.
 Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan 
 Server running in a Docker container, create `hotrod-client.properties` file under `resources/META-INF` folder and configure `infinispan.client.hotrod.client_intelligence=BASIC`
 
-== Run the demo with jar
+.Build and run the demo with jar
+   mvn clean package
+   cd target
+   java -jar hogwarts-monitoring-runner.jar
 
-- `mvn clean package`
-- `cd target`
-- `java -jar hogwarts-monitoring-runner.jar`
-
-== Run the demo in native mode
-Compile the application in native mode:
-
-- `mvn package -Pnative`
-- `cd target`
-- `./hogwarts-monitoring-runner`
+.Build and run the application in native mode
+   mvn package -Pnative
+   cd target
+   ./hogwarts-monitoring-runner
 
 === Loaded data
 Maven copies `hp_characters.csv` and `hp_spells.csv`to the target directory, that's why it's easier to run the executables
 from the `target` folder. However you can override these files location at runtime.
 
-- Running the jar
+.Running the jar
  
    java -jar  -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv hogwarts-monitoring-runner.jar
 
-- Running the native
- 
+.Running the native
    ./hogwarts-monitoring-runner -Dcharacters.filename=/my/path/hp_characters.csv -Dspells.filename=/my/path/hp_spells.csv
 
 ## Wizards Magic
@@ -131,15 +130,15 @@ Important: This tutorial user **VirtualBox**, but this can be changed in the lin
 
 Once MiniShift is installed
 
-- `./minishift/setup-minishift.sh`
-- `minishift start`
+.Run Minishift
+   > ./minishift/setup-minishift.sh
+   > minishift start
 
 You should be able to access to the console
 
-```bash
-The server is accessible via web console at:
-https://192.168.99.117:8443/console
-```
+.The server is accessible via web console
+   https://192.168.99.117:8443/console
+
 
 ==== Install Infinispan Cluster
 
@@ -151,11 +150,11 @@ You can access to OpenShift console
 
 image:/images/OperatorAndCluster.png[OpenShift web interface]
 
-==== Build each application
+=== Build each application
 
 For both applications - hogwarts-monitoring and wizards-magic - execute the following steps:
 
-1) Configure `infinispan-client.server-list` property
+===== Configure infinispan-client.server-list property
 
 The application is going to be deployed in OpenShift, and will connect to the Infinispan Cluster that is available.
 
@@ -164,42 +163,46 @@ Quarkus does not allow to override the value dynamically.
 
 Before building the application, change this value so the application will be able to connect to the Infinispan Cluster
 once it will be deployed in OpenShift :
-`quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222`
 
-2) Build each application native, but for docker
+   quarkus.infinispan-client.server-list=expecto-patronum-infinispan:11222
 
-`mvn clean package -Pnative -Dnative-image.docker-build=true`
+==== Build each application native, but for docker
+
+   mvn clean package -Pnative -Dnative-image.docker-build=true
 
 ==== Deploy the application
 You have two options.
 
 ===== Option 1: Use Docker Registry
 An image of the applications are available in the public docker hub:
-`karesti/hogwarts-monitoring:tagname`
-`karesti/wizards-magic:tagname`
+
+.docker images
+   karesti/hogwarts-monitoring:tagname
+   karesti/wizards-magic:tagname
+
 You can deploy an image from the OpenShift web console.
 
 ===== Option 2: Use OpenShift build
 
-```bash 
-oc new-build --binary --name=-oc-hogwarts-monitoring -l app=oc-hogwarts-monitoring
-oc start-build oc-hogwarts-monitoring --from-dir=. --follow
-oc new-app --image-stream=oc-hogwarts-monitoring:latest
-```
+.hogwarts-monitoring
+   oc new-build --binary --name=-oc-hogwarts-monitoring -l app=oc-hogwarts-monitoring
+   oc start-build oc-hogwarts-monitoring --from-dir=. --follow
+   oc new-app --image-stream=oc-hogwarts-monitoring:latest
 
-```bash
-oc new-build --binary --name=-oc-wizards-magic -l app=oc-wizards-magic
-oc start-build oc-wizards-magic --from-dir=. --follow
-oc new-app --image-stream=oc-wizards-magic:latest
-```
+.wizards-magic
+   oc new-build --binary --name=-oc-wizards-magic -l app=oc-wizards-magic
+   oc start-build oc-wizards-magic --from-dir=. --follow
+   oc new-app --image-stream=oc-wizards-magic:latest
+
 You will see that the applications are deployed and the logs can be displayed.
 
 ===== Access to the applications with the browser
 
 If you want to access to the interfaces on the browser, you need to expose a service.
 
-Run `oc expose service oc-hogwarts-monitoring` (or another app name)
-Run `oc expose service oc-wizards-magic` (or another app name)
+   oc expose service oc-hogwarts-monitoring (or another app name)
+
+   oc expose service oc-wizards-magic (or another app name)
 
 
 
