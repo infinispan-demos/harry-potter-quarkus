@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.6">
-<title>Quarkus demo: Infinispan Client</title>
+<title>Harry Potter Quarkus Demo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,14 +441,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_quarkus_demo_infinispan_client">Quarkus demo: Infinispan Client</a></li>
+<li><a href="#_harry_potter_quarkus_demo">Harry Potter Quarkus Demo</a></li>
 <li><a href="#_before_running_the_demo">Before running the demo</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_use_docker">Option 1: Use Docker</a></li>
 <li><a href="#_option_2_download_and_run_the_server">Option 2: Download and run the server</a></li>
 </ul>
 </li>
-<li><a href="#_harry_potter_demo">Harry-Potter demo</a></li>
 <li><a href="#_hogwarts_monitoring">Hogwarts Monitoring</a>
 <ul class="sectlevel2">
 <li><a href="#_data_loading">Data loading</a></li>
@@ -462,23 +461,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_wizards_magic">Wizards Magic</a></li>
 <li><a href="#_openshift">OpenShift</a>
 <ul class="sectlevel2">
-<li><a href="#_using_minishift">Using MiniShift</a>
-<ul class="sectlevel3">
-<li><a href="#_install_minishift">Install MiniShift</a></li>
+<li><a href="#_using_minishift">Using MiniShift</a></li>
 <li><a href="#_install_infinispan_cluster">Install Infinispan Cluster</a></li>
-</ul>
-</li>
 <li><a href="#_build_each_application">Build each application</a>
-<ul class="sectlevel4">
+<ul class="sectlevel3">
 <li><a href="#_configure_infinispan_client_server_list_property">Configure infinispan-client.server-list property</a></li>
 <li><a href="#_build_each_application_native_but_for_docker">Build each application native, but for docker</a></li>
-<li><a href="#_deploy_the_application">Deploy the application</a>
-<ul class="sectlevel4">
-<li><a href="#_option_1_use_docker_registry">Option 1: Use Docker Registry</a></li>
-<li><a href="#_option_2_use_openshift_build">Option 2: Use OpenShift build</a></li>
+<li><a href="#_deploy_the_application">Deploy the application</a></li>
 <li><a href="#_access_to_the_applications_with_the_browser">Access to the applications with the browser</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -488,10 +478,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_quarkus_demo_infinispan_client">Quarkus demo: Infinispan Client</h2>
+<h2 id="_harry_potter_quarkus_demo">Harry Potter Quarkus Demo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This example showcases how to use Infinispan client with Quarkus.</p>
+<p>The main goal of this demo is to showcase how to use Infinispan client with Quarkus.</p>
+</div>
+<div class="paragraph">
+<p><strong>Infinispan</strong> features that are being used:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -510,7 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>Uses Quarkus features, such as</p>
+<p><strong>Quarkus</strong> features:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -531,6 +524,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The demo is composed by two applications that run independently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hogwarts monitoring</p>
+</li>
+<li>
+<p>Wizards magic</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each application has a dedicated section in this documentation</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -542,8 +551,10 @@ You need to have an Infinispan Server running before you run this demo.</p>
 </div>
 <div class="sect2">
 <h3 id="_option_1_use_docker">Option 1: Use Docker</h3>
-<div class="paragraph">
-<p><code>docker run -it -p 11222:11222 jboss/infinispan-server:latest</code></p>
+<div class="literalblock">
+<div class="content">
+<pre>docker run -it -p 11222:11222 jboss/infinispan-server:latest</pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -561,14 +572,6 @@ You need to have an Infinispan Server running before you run this demo.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_harry_potter_demo">Harry-Potter demo</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The demo has two applications.</p>
 </div>
 </div>
 </div>
@@ -726,8 +729,6 @@ Operators are supported for OpenShift 4 or 3.11.</p>
 </div>
 <div class="sect2">
 <h3 id="_using_minishift">Using MiniShift</h3>
-<div class="sect3">
-<h4 id="_install_minishift">Install MiniShift</h4>
 <div class="paragraph">
 <p>A simple way to deploy locally and test, you can use <a href="https://docs.okd.io/latest/minishift/getting-started/installing.html">MiniShift</a>.</p>
 </div>
@@ -754,8 +755,8 @@ Operators are supported for OpenShift 4 or 3.11.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_install_infinispan_cluster">Install Infinispan Cluster</h4>
+<div class="sect2">
+<h3 id="_install_infinispan_cluster">Install Infinispan Cluster</h3>
 <div class="paragraph">
 <p>Run <code>infinispan-cluster.sh</code></p>
 </div>
@@ -765,18 +766,19 @@ Operators are supported for OpenShift 4 or 3.11.</p>
 <div class="paragraph">
 <p>You can access to OpenShift console</p>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="/images/OperatorAndCluster.png" alt="OpenShift web interface"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/OperatorAndCluster.png" alt="OpenShift web interface">
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_build_each_application">Build each application</h3>
 <div class="paragraph">
-<p>For both applications - hogwarts-monitoring and wizards-magic - execute the following steps:</p>
+<p>For both applications execute the following steps:</p>
 </div>
-<div class="sect4">
-<h5 id="_configure_infinispan_client_server_list_property">Configure infinispan-client.server-list property</h5>
+<div class="sect3">
+<h4 id="_configure_infinispan_client_server_list_property">Configure infinispan-client.server-list property</h4>
 <div class="paragraph">
 <p>The application is going to be deployed in OpenShift, and will connect to the Infinispan Cluster that is available.</p>
 </div>
@@ -807,8 +809,9 @@ once it will be deployed in OpenShift :</p>
 <div class="paragraph">
 <p>You have two options.</p>
 </div>
-<div class="sect4">
-<h5 id="_option_1_use_docker_registry">Option 1: Use Docker Registry</h5>
+<div class="paragraph">
+<p><strong>Option 1: Use Docker Registry</strong></p>
+</div>
 <div class="paragraph">
 <p>An image of the applications are available in the public docker hub:</p>
 </div>
@@ -822,9 +825,9 @@ karesti/wizards-magic:tagname</pre>
 <div class="paragraph">
 <p>You can deploy an image from the OpenShift web console.</p>
 </div>
+<div class="paragraph">
+<p><strong>Option 2: Use OpenShift build</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_option_2_use_openshift_build">Option 2: Use OpenShift build</h5>
 <div class="literalblock">
 <div class="title">hogwarts-monitoring</div>
 <div class="content">
@@ -845,20 +848,19 @@ oc new-app --image-stream=oc-wizards-magic:latest</pre>
 <p>You will see that the applications are deployed and the logs can be displayed.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_access_to_the_applications_with_the_browser">Access to the applications with the browser</h5>
+<div class="sect3">
+<h4 id="_access_to_the_applications_with_the_browser">Access to the applications with the browser</h4>
 <div class="paragraph">
 <p>If you want to access to the interfaces on the browser, you need to expose a service.</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>oc expose service oc-hogwarts-monitoring (or another app name)</pre>
+<pre>oc expose service oc-hogwarts-monitoring</pre>
 </div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>oc expose service oc-wizards-magic (or another app name)</pre>
-</div>
+<pre>oc expose service oc-wizards-magic</pre>
 </div>
 </div>
 </div>
@@ -868,7 +870,7 @@ oc new-app --image-stream=oc-wizards-magic:latest</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-11 13:11:15 +0200
+Last updated 2019-04-12 11:18:01 +0200
 </div>
 </div>
 </body>

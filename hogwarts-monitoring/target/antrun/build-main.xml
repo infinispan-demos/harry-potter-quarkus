@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy file="./src/main/resources/hp_characters.csv" tofile="/Users/katiaaresti/REDHAT/QUARKUS/harry-potter-quarkus/hogwarts-monitoring/target/hp_characters.csv"/>
+  <copy file="./src/main/resources/hp_spells.csv" tofile="/Users/katiaaresti/REDHAT/QUARKUS/harry-potter-quarkus/hogwarts-monitoring/target/hp_spells.csv"/>
+</target>
+</project>
