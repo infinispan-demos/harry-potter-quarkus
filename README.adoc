@@ -68,6 +68,8 @@ link:src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that 
 monitor which characters in Hogwarts are currently performing magic.
 The continuous query does not have to go to the server and it is all stored in the client application itself. http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous[Read more about these queries in the official Infinispan documentation].
 
+image::hogwarts-monitoring.png[Hogwarts Monitoring WebSocket]
+
 === Run Hogwarts Monitoring in dev mode
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
