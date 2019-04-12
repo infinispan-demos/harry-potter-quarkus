@@ -4,16 +4,17 @@
 :icons: font
 :imagesdir: ./images
 
-== Quarkus demo: Infinispan Client
+== Harry Potter Quarkus Demo
+The main goal of this demo is to showcase how to use Infinispan client with Quarkus.
 
-This example showcases how to use Infinispan client with Quarkus.
+*Infinispan* features that are being used:
 
 * Create stores dynamically
 * Simple get/put operations
 * Full-text query
 * Continuous query
 
-Uses Quarkus features, such as
+*Quarkus* features:
 
 * REST web-service
 * Web Socket
@@ -21,25 +22,26 @@ Uses Quarkus features, such as
 * Application properties
 * Application lifecycle events listeners
 
-== Before running the demo
+The demo is composed by two applications that run independently:
 
+* Hogwarts monitoring
+* Wizards magic
+
+Each application has a dedicated section in this documentation
+
+== Before running the demo
 Quarkus uses http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server[Infinispan Remote Client].
 You need to have an Infinispan Server running before you run this demo.
 
 === Option 1: Use Docker
-`docker run -it -p 11222:11222 jboss/infinispan-server:latest`
+   docker run -it -p 11222:11222 jboss/infinispan-server:latest
 
 === Option 2: Download and run the server
 - Download the server from http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip[here]
 - Unzip the file 
 - Run a standalone server from the installation folder: `./bin/standalone.sh`
 
-== Harry-Potter demo
-
-The demo has two applications.
-
 == Hogwarts Monitoring
-
 Characters can execute spells, and we want to monitor who is in Hogwarts and performing magic.
 
 - A `Character` has an id, name, biography and type (other, student, teacher, muggle).
@@ -47,7 +49,6 @@ Characters can execute spells, and we want to monitor who is in Hogwarts and per
 - A `Spell` is performed by a character. This character may or may not be at Hogwarts.
 
 === Data loading
-
 `DataLoader` class loads characters and spells in two separate stores.
 This is done at startup time
 
@@ -57,7 +58,6 @@ characters performing some magic. It will randomly pick a character and a spell 
 Characters in Hogwarts are teachers or students.
 
 TIP: To disable this service, set `create.magic` property to `false` in the `application.properties`.
-
 
 === Search
 link:src/main/java/org/infinispan/hp/CharactersResource.java[A simple REST service] is available to query
@@ -123,7 +123,6 @@ Operators are supported for OpenShift 4 or 3.11.
 
 === Using MiniShift
 
-==== Install MiniShift
 A simple way to deploy locally and test, you can use https://docs.okd.io/latest/minishift/getting-started/installing.html[MiniShift].
 
 Important: This tutorial user **VirtualBox**, but this can be changed in the link:/minishift/setup-minishift.sh[setup file]
@@ -140,7 +139,7 @@ You should be able to access to the console
    https://192.168.99.117:8443/console
 
 
-==== Install Infinispan Cluster
+=== Install Infinispan Cluster
 
 Run `infinispan-cluster.sh`
 
@@ -148,13 +147,13 @@ This file contains all the necessary commands to install the operator and the In
 
 You can access to OpenShift console
 
-image:/images/OperatorAndCluster.png[OpenShift web interface]
+image::/images/OperatorAndCluster.png[OpenShift web interface]
 
 === Build each application
 
-For both applications - hogwarts-monitoring and wizards-magic - execute the following steps:
+For both applications execute the following steps:
 
-===== Configure infinispan-client.server-list property
+==== Configure infinispan-client.server-list property
 
 The application is going to be deployed in OpenShift, and will connect to the Infinispan Cluster that is available.
 
@@ -173,7 +172,9 @@ once it will be deployed in OpenShift :
 ==== Deploy the application
 You have two options.
 
-===== Option 1: Use Docker Registry
+
+*Option 1: Use Docker Registry*
+
 An image of the applications are available in the public docker hub:
 
 .docker images
@@ -182,7 +183,7 @@ An image of the applications are available in the public docker hub:
 
 You can deploy an image from the OpenShift web console.
 
-===== Option 2: Use OpenShift build
+*Option 2: Use OpenShift build*
 
 .hogwarts-monitoring
    oc new-build --binary --name=-oc-hogwarts-monitoring -l app=oc-hogwarts-monitoring
@@ -196,13 +197,13 @@ You can deploy an image from the OpenShift web console.
 
 You will see that the applications are deployed and the logs can be displayed.
 
-===== Access to the applications with the browser
+==== Access to the applications with the browser
 
 If you want to access to the interfaces on the browser, you need to expose a service.
 
-   oc expose service oc-hogwarts-monitoring (or another app name)
+   oc expose service oc-hogwarts-monitoring
 
-   oc expose service oc-wizards-magic (or another app name)
+   oc expose service oc-wizards-magic
 
 
 
