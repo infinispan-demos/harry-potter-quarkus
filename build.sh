@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-set -x
-git commit -a -m "Updated docs"
-set -e
-git push origin master
-
 rm -rf /tmp/images
 
 #Generate diagrams
