@@ -13,3 +13,4 @@ buildNumber.properties
 .idea/
 quarkus.log
 *.iml
+README.html
