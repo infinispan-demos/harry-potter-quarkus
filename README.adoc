@@ -36,7 +36,7 @@ You need to have an Infinispan Server running before you run this demo.
 === Option 1: Use Docker
    docker run -it -p 11222:11222 jboss/infinispan-server:latest
 
-IMPORTANT: Docker for mac users. There is a known issue to connect with the server using the hotrod client.
+IMPORTANT: *Docker for mac users*. There is a known issue to connect with the server using the hotrod client.
 Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan
 Server running in a Docker container, create `hotrod-client.properties` file under `src/main/resources/META-INF` folder
