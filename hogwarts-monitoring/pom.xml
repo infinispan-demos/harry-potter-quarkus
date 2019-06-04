@@ -16,12 +16,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>harry-potter-quarkus-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>

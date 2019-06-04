@@ -1,17 +1,14 @@
 package org.infinispan.hp;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.MediaType;
 
-import org.junit.Ignore;
-import org.junit.jupiter.api.Test;
-
-import io.quarkus.test.junit.QuarkusTest;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@Ignore
 public class WizardResourceTest {
 
    @Test
@@ -26,7 +23,7 @@ public class WizardResourceTest {
    @Test
    public void testAdd() {
       given()
-            .body("{\"caster\": \"Harry Potter\", \"spell\": \"Expelliarmus\", \"type\": \"STUDENT\"}")
+            .body("{\"caster\": \"Harry Potter\", \"curse\": \"Expelliarmus\", \"type\": \"STUDENT\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
             .when()
             .post("/harry-potter/magic")
