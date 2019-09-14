@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.commons.configuration.XMLStringConfiguration;
 import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.hp.model.HPMagic;
 import org.infinispan.hp.model.HPSpell;
@@ -44,15 +45,20 @@ public class DataLoader {
    @Inject
    RemoteCacheManager cacheManager;
 
+   private static final String CACHE_CONFIG =
+           "<infinispan><cache-container>" +
+                   "<distributed-cache name=\"%s\"></distributed-cache>" +
+                   "</cache-container></infinispan>";
+
    /**
     * Listens startup event to load the data
     */
    void onStart(@Observes @Priority(value = 1) StartupEvent ev) {
       LOGGER.info("On start - clean and load");
       // Get or create caches
-      RemoteCache<Integer, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, "default");
-      RemoteCache<Integer, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, "default");
-      RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, "default");
+      RemoteCache<Integer, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_CHARACTERS_NAME)));
+      RemoteCache<Integer, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_SPELLS_NAME)));
+      RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_MAGIC_NAME)));
 
       LOGGER.info("Existing stores are " + cacheManager.getCacheNames().toString());
 
