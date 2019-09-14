@@ -29,7 +29,6 @@ public class Init {
           "<infinispan><cache-container>" +
                   "<distributed-cache name=\"%s\">" +
                   "<encoding><key media-type=\"text/plain\"/><value media-type=\"application/json\"/></encoding>" +
-                  "<expiration interval=\"10000\" lifespan=\"10\" max-idle=\"10\"/></distributed-cache>" +
                   "</cache-container></infinispan>";
 
    /**
