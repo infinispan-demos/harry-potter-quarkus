@@ -34,8 +34,6 @@ public class HogwartsMagicWebSocket {
    @Remote(DataLoader.HP_MAGIC_NAME)
    RemoteCache<String, HPMagic> magic;
 
-   private Map<Session, ContinuousQueryListener<String, HPMagic>> listeners = new ConcurrentHashMap<>();
-
    @OnOpen
    public void onOpen(Session session) {
       LOGGER.info("Hogwarts monitoring session has been opened");
@@ -71,6 +69,8 @@ public class HogwartsMagicWebSocket {
       // Track a session with a listener to be able to remove the listener when the web-socket is closed or an error happens
       listeners.put(session, listener);
    }
+
+   private Map<Session, ContinuousQueryListener<String, HPMagic>> listeners = new ConcurrentHashMap<>();
 
    @OnClose
    public void onClose(Session session) {
