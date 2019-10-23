@@ -2,34 +2,42 @@ package org.infinispan.hp.model;
 
 import java.util.Objects;
 
+import org.infinispan.protostream.annotations.ProtoFactory;
+import org.infinispan.protostream.annotations.ProtoField;
+
 /**
  * Harry Potter saga spell
  */
 public class HPSpell {
-   private final int id;
+   private final Integer id;
    private final String name;
    private final String type;
    private final String description;
 
-   public HPSpell(int id, String name, String type, String description) {
+   @ProtoFactory
+   public HPSpell(Integer id, String name, String type, String description) {
       this.id = id;
       this.name = name;
       this.type = type;
       this.description = description;
    }
 
-   public int getId() {
+   @ProtoField(number = 1)
+   public Integer getId() {
       return id;
    }
 
+   @ProtoField(number = 2)
    public String getName() {
       return name;
    }
 
+   @ProtoField(number = 3)
    public String getType() {
       return type;
    }
 
+   @ProtoField(number = 4)
    public String getDescription() {
       return description;
    }

@@ -2,6 +2,9 @@ package org.infinispan.hp.model;
 
 import java.util.Objects;
 
+import org.infinispan.protostream.annotations.ProtoFactory;
+import org.infinispan.protostream.annotations.ProtoField;
+
 /**
  * Author and Spell magic object
  */
@@ -9,28 +12,33 @@ public class HPMagic {
    private final String id;
    private final String caster;
    private final String spell;
-   private final boolean hogwarts;
+   private final Boolean hogwarts;
 
-   public HPMagic(String id, String caster, String spell, boolean hogwarts) {
+   @ProtoFactory
+   public HPMagic(String id, String caster, String spell, Boolean hogwarts) {
       this.id = id;
       this.caster = caster;
       this.spell = spell;
       this.hogwarts = hogwarts;
    }
 
+   @ProtoField(number = 1)
    public String getId() {
       return id;
    }
 
+   @ProtoField(number = 2)
    public String getCaster() {
       return caster;
    }
 
+   @ProtoField(number = 3)
    public String getSpell() {
       return spell;
    }
 
-   public boolean isHogwarts() {
+   @ProtoField(number = 4)
+   public Boolean isHogwarts() {
       return hogwarts;
    }
 

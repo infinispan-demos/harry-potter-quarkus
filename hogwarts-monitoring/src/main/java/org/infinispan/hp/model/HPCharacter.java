@@ -2,23 +2,20 @@ package org.infinispan.hp.model;
 
 import java.util.Objects;
 
+import org.infinispan.protostream.annotations.ProtoFactory;
+import org.infinispan.protostream.annotations.ProtoField;
+
 /**
  * Harry Potter saga character
  */
 public class HPCharacter {
-   private final int id;
+   private final Integer id;
    private final String name;
    private final String bio;
    private final CharacterType type;
 
-   public enum CharacterType {
-      OTHER,
-      STUDENT,
-      TEACHER,
-      MUGGLE
-   }
-
-   public HPCharacter(int id, String name, String bio, CharacterType type) {
+   @ProtoFactory
+   public HPCharacter(Integer id, String name, String bio, CharacterType type) {
       this.id = id;
       this.name = name;
       this.bio = bio;
@@ -51,18 +48,22 @@ public class HPCharacter {
       return Objects.hash(id, name, bio, type);
    }
 
-   public int getId() {
+   @ProtoField(number = 1)
+   public Integer getId() {
       return id;
    }
 
+   @ProtoField(number = 2)
    public String getName() {
       return name;
    }
 
+   @ProtoField(number = 3)
    public String getBio() {
       return bio;
    }
 
+   @ProtoField(number = 4)
    public CharacterType getType() {
       return type;
    }
