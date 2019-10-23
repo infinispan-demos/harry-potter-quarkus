@@ -14,6 +14,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.commons.configuration.XMLStringConfiguration;
+import org.infinispan.hp.model.CharacterType;
 import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.hp.model.HPMagic;
 import org.infinispan.hp.model.HPSpell;
@@ -108,7 +109,7 @@ public class DataLoader {
          while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
             int type = Integer.parseInt(values[0].trim());
-            HPCharacter.CharacterType hpType = HPCharacter.CharacterType.values()[type];
+            CharacterType hpType = CharacterType.values()[type];
             HPCharacter character = new HPCharacter(id, values[1].trim(), values[2].trim(), hpType);
             cache.put(id, character);
             id++;
