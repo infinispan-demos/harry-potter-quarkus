@@ -6,7 +6,7 @@ networks:
 
 services:
   infinispan-server:
-    image: jboss/infinispan-server:10.0.0.Beta3
+    image: infinispan/server
     environment:
       - APP_USER=user
       - APP_PASS=changeme
