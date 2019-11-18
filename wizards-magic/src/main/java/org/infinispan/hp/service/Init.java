@@ -26,10 +26,9 @@ public class Init {
    RemoteCacheManager cacheManager;
 
    private static final String CACHE_CONFIG =
-          "<infinispan><cache-container>" +
-                  "<distributed-cache name=\"%s\">" +
-                  "<encoding><key media-type=\"text/plain\"/><value media-type=\"application/json\"/></encoding>" +
-                  "</cache-container></infinispan>";
+         "<infinispan><cache-container>" +
+               "<distributed-cache name=\"%s\"></distributed-cache>" +
+               "</cache-container></infinispan>";
 
    /**
     * Listens startup event to load the data
