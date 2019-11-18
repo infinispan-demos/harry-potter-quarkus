@@ -18,7 +18,7 @@ import org.infinispan.hp.model.HPMagic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.quarkus.infinispan.client.runtime.Remote;
+import io.quarkus.infinispan.client.Remote;
 
 @Path("/harry-potter/magic")
 @Produces(MediaType.APPLICATION_JSON)

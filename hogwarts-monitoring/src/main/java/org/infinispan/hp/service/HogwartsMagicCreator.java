@@ -13,7 +13,7 @@ import org.infinispan.hp.model.HPSpell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.quarkus.infinispan.client.runtime.Remote;
+import io.quarkus.infinispan.client.Remote;
 import io.quarkus.scheduler.Scheduled;
 
 public class HogwartsMagicCreator {
