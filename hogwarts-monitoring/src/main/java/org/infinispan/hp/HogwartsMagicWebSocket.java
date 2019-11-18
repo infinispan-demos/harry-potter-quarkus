@@ -1,6 +1,5 @@
 package org.infinispan.hp;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,10 +11,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.infinispan.hp.model.HPMagic;
-import org.infinispan.hp.service.DataLoader;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.Search;
+import org.infinispan.hp.model.HPMagic;
+import org.infinispan.hp.service.DataLoader;
 import org.infinispan.query.api.continuous.ContinuousQuery;
 import org.infinispan.query.api.continuous.ContinuousQueryListener;
 import org.infinispan.query.dsl.Query;
@@ -34,8 +33,11 @@ public class HogwartsMagicWebSocket {
    @Remote(DataLoader.HP_MAGIC_NAME)
    RemoteCache<String, HPMagic> magic;
 
+   Map<String, Session> sessions = new ConcurrentHashMap<>();
+
    @OnOpen
    public void onOpen(Session session) {
+      sessions.put(session.getId(), session);
       LOGGER.info("Hogwarts monitoring session has been opened");
       if (magic == null) {
          LOGGER.error("Unable to search... Is He-Who-Must-Not-Be-Named around?");
@@ -52,11 +54,7 @@ public class HogwartsMagicWebSocket {
       ContinuousQueryListener<String, HPMagic> listener = new ContinuousQueryListener<String, HPMagic>() {
          @Override
          public void resultJoining(String key, HPMagic value) {
-            try {
-               session.getBasicRemote().sendText(value.getCaster() + " executed " + value.getSpell());
-            } catch (IOException e) {
-               LOGGER.error("The Dark Lord intercepted the monitoring...", e);
-            }
+            broadcast(value.getCaster() + " executed " + value.getSpell());
          }
       };
 
@@ -74,6 +72,7 @@ public class HogwartsMagicWebSocket {
 
    @OnClose
    public void onClose(Session session) {
+      sessions.remove(session.getId());
       LOGGER.info("Hogwarts monitoring has been closed");
       // Removing the listener is important to avoid memory leaks
       removeListener(session);
@@ -81,6 +80,7 @@ public class HogwartsMagicWebSocket {
 
    @OnError
    public void onError(Session session, Throwable throwable) {
+      sessions.remove(session.getId());
       LOGGER.error("Hogwarts monitoring session error", throwable);
       // Removing the listener is important to avoid memory leaks
       removeListener(session);
@@ -91,5 +91,15 @@ public class HogwartsMagicWebSocket {
       ContinuousQuery<String, HPMagic> continuousQuery = Search.getContinuousQuery(magic);
       continuousQuery.removeContinuousQueryListener(queryListener);
       listeners.remove(session);
+   }
+
+   private void broadcast(String message) {
+      sessions.values().forEach(s -> {
+         s.getAsyncRemote().sendObject(message, result -> {
+            if (result.getException() != null) {
+               LOGGER.error("The Dark Lord intercepted the monitoring...", result.getException());
+            }
+         });
+      });
    }
 }
