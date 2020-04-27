@@ -1,8 +1,8 @@
 package org.infinispan.hp;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class WizardResourceIT extends WizardResourceTest {
 
 }

@@ -94,12 +94,10 @@ public class HogwartsMagicWebSocket {
    }
 
    private void broadcast(String message) {
-      sessions.values().forEach(s -> {
-         s.getAsyncRemote().sendObject(message, result -> {
-            if (result.getException() != null) {
-               LOGGER.error("The Dark Lord intercepted the monitoring...", result.getException());
-            }
-         });
-      });
+      sessions.values().forEach(s -> s.getAsyncRemote().sendObject(message, result -> {
+         if (result.getException() != null) {
+            LOGGER.error("The Dark Lord intercepted the monitoring...", result.getException());
+         }
+      }));
    }
 }

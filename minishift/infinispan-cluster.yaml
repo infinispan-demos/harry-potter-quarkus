@@ -3,5 +3,6 @@ kind: Infinispan
 metadata:
   name: expecto-patronum-infinispan
 spec:
-  size: 1
-  clustername: expecto-patronum-cluster
+  replicas: 1
+  security:
+    endpointSecretName: infinispan-connect-secret
