@@ -60,18 +60,18 @@ Characters can execute spells, and we want to monitor who is in Hogwarts and per
 This is done at startup time
 
 === Magic is going on
-link:src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java[Hogwarts Magic Creator] is going to emulate
+link:hogwarts-monitoring/src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java[Hogwarts Magic Creator] is going to emulate
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students.
 
 TIP: To disable this service, set `create.magic` property to `false` in the `application.properties`.
 
 === Search
-link:src/main/java/org/infinispan/hp/CharactersResource.java[A simple REST service] is available to query
+link:hogwarts-monitoring/src/main/java/org/infinispan/hp/CharactersResource.java[A simple REST service] is available to query
 characters by id or perform a full-text search of the name or the biography.
 
 === Magic Socket
-link:src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that performs a Continuous Query making it possible to
+link:hogwarts-monitoring/src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
 The continuous query does not have to go to the server and it is all stored in the client application itself. http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous[Read more about these queries in the official Infinispan documentation].
 
