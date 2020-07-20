@@ -10,11 +10,13 @@
     <packaging>pom</packaging>
 
     <properties>
-        <quarkus.version>1.4.2.Final</quarkus.version>
-        <surefire.version>2.22.0</surefire.version>
+        <quarkus.version>1.6.0.Final</quarkus.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <surefire-plugin.version>2.22.1</surefire-plugin.version>
+        <compiler-plugin.version>3.8.1</compiler-plugin.version>
+        <quarkus-plugin.version>1.6.0.Final</quarkus-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -33,6 +35,37 @@
         <module>hogwarts-monitoring</module>
         <module>wizards-magic</module>
     </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <maven.home>${maven.home}</maven.home>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>native</id>
@@ -41,7 +74,7 @@
                     <plugin>
                         <groupId>io.quarkus</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.version}</version>
+                        <version>${quarkus-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -56,7 +89,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire.version}</version>
+                        <version>${surefire-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>

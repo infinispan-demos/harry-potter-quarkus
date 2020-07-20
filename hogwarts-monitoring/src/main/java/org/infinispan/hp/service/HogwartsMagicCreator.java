@@ -21,11 +21,11 @@ public class HogwartsMagicCreator {
 
    @Inject
    @Remote(DataLoader.HP_CHARACTERS_NAME)
-   RemoteCache<Integer, HPCharacter> characters;
+   RemoteCache<String, HPCharacter> characters;
 
    @Inject
    @Remote(DataLoader.HP_SPELLS_NAME)
-   RemoteCache<Integer, HPSpell> spells;
+   RemoteCache<String, HPSpell> spells;
 
    @Inject
    @Remote(DataLoader.HP_MAGIC_NAME)
@@ -89,12 +89,10 @@ public class HogwartsMagicCreator {
    }
 
    private HPSpell getRandomHpSpell() {
-      Integer spellId = randomSpells.nextInt(spells.size());
-      return spells.get(spellId);
+      return spells.get(String.valueOf(randomSpells.nextInt(spells.size())));
    }
 
    private HPCharacter getRandomHpCharacter() {
-      Integer characterId = randomCharacters.nextInt(characters.size());
-      return characters.get(characterId);
+      return characters.get(String.valueOf(randomCharacters.nextInt(characters.size())));
    }
 }

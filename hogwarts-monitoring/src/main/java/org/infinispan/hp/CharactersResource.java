@@ -28,7 +28,7 @@ public class CharactersResource {
 
    @GET
    @Path("/{id}")
-   public HPCharacter byId(@PathParam("id") Integer id) {
+   public HPCharacter byId(@PathParam("id") String id) {
       LOGGER.info("Search by Id " + id);
       HPCharacter character = searchService.getById(id);
       if (character == null) {
@@ -39,7 +39,7 @@ public class CharactersResource {
 
    @GET
    @Path("/async/{id}")
-   public CompletionStage<HPCharacter> byIdAsync(@PathParam("id") Integer id) {
+   public CompletionStage<HPCharacter> byIdAsync(@PathParam("id") String id) {
       LOGGER.info("Search by Id Async " + id);
       return searchService.getByIdAsync(id).whenComplete((c, e) -> {
          if (e != null) {

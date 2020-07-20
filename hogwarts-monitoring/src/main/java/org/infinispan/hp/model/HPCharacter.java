@@ -9,13 +9,13 @@ import org.infinispan.protostream.annotations.ProtoField;
  * Harry Potter saga character
  */
 public class HPCharacter {
-   private final Integer id;
+   private final String id;
    private final String name;
    private final String bio;
    private final CharacterType type;
 
    @ProtoFactory
-   public HPCharacter(Integer id, String name, String bio, CharacterType type) {
+   public HPCharacter(String id, String name, String bio, CharacterType type) {
       this.id = id;
       this.name = name;
       this.bio = bio;
@@ -27,7 +27,7 @@ public class HPCharacter {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       HPCharacter character = (HPCharacter) o;
-      return id == character.id &&
+      return  Objects.equals(id, character.id) &&
             Objects.equals(name, character.name) &&
             Objects.equals(bio, character.bio) &&
             Objects.equals(type, character.type);
@@ -49,7 +49,7 @@ public class HPCharacter {
    }
 
    @ProtoField(number = 1)
-   public Integer getId() {
+   public String getId() {
       return id;
    }
 

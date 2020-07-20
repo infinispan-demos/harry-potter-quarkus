@@ -9,13 +9,13 @@ import org.infinispan.protostream.annotations.ProtoField;
  * Harry Potter saga spell
  */
 public class HPSpell {
-   private final Integer id;
+   private final String id;
    private final String name;
    private final String type;
    private final String description;
 
    @ProtoFactory
-   public HPSpell(Integer id, String name, String type, String description) {
+   public HPSpell(String id, String name, String type, String description) {
       this.id = id;
       this.name = name;
       this.type = type;
@@ -23,7 +23,7 @@ public class HPSpell {
    }
 
    @ProtoField(number = 1)
-   public Integer getId() {
+   public String getId() {
       return id;
    }
 
@@ -47,7 +47,7 @@ public class HPSpell {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       HPSpell that = (HPSpell) o;
-      return id == that.id &&
+      return Objects.equals(id, that.id)  &&
             Objects.equals(name, that.name) &&
             Objects.equals(type, that.type) &&
             Objects.equals(description, that.description);

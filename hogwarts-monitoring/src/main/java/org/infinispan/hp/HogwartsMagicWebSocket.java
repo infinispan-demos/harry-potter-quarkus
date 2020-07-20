@@ -46,9 +46,8 @@ public class HogwartsMagicWebSocket {
 
       // Create the query. Every character that it's actually performing magic in Hogwarts
       QueryFactory queryFactory = Search.getQueryFactory(magic);
-      Query query = queryFactory.from(HPMagic.class)
-            .having("hogwarts").eq(true)
-            .build();
+
+      Query query = queryFactory.create("from hp_monitoring.HPMagic where hogwarts=true");
 
       // Create a Continuous Query Listener
       ContinuousQueryListener<String, HPMagic> listener = new ContinuousQueryListener<String, HPMagic>() {

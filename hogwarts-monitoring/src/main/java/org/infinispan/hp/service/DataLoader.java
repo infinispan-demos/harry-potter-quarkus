@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
-import org.infinispan.commons.configuration.XMLStringConfiguration;
 import org.infinispan.hp.model.CharacterType;
 import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.hp.model.HPMagic;
@@ -33,6 +32,7 @@ public class DataLoader {
    public static final String HP_CHARACTERS_NAME = "characters";
    public static final String HP_SPELLS_NAME = "spells";
    public static final String HP_MAGIC_NAME = "magic";
+   public static final String PROTOBUF_DIST_TEMPLATE = "example.PROTOBUF_DIST";
 
    @ConfigProperty(name = "characters.filename")
    String charactersFileName;
@@ -46,20 +46,15 @@ public class DataLoader {
    @Inject
    RemoteCacheManager cacheManager;
 
-   private static final String CACHE_CONFIG =
-           "<infinispan><cache-container>" +
-                   "<distributed-cache name=\"%s\"></distributed-cache>" +
-                   "</cache-container></infinispan>";
-
    /**
     * Listens startup event to load the data
     */
    void onStart(@Observes @Priority(value = 1) StartupEvent ev) {
       LOGGER.info("On start - clean and load");
       // Get or create caches
-      RemoteCache<Integer, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_CHARACTERS_NAME)));
-      RemoteCache<Integer, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_SPELLS_NAME)));
-      RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, new XMLStringConfiguration(String.format(CACHE_CONFIG, HP_MAGIC_NAME)));
+      RemoteCache<String, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, PROTOBUF_DIST_TEMPLATE);
+      RemoteCache<String, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, PROTOBUF_DIST_TEMPLATE);
+      RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, PROTOBUF_DIST_TEMPLATE);
 
       LOGGER.info("Existing stores are " + cacheManager.getCacheNames().toString());
 
@@ -72,7 +67,7 @@ public class DataLoader {
       loadData(characters, spells);
    }
 
-   private void loadData(RemoteCache<Integer, HPCharacter> characters, RemoteCache<Integer, HPSpell> spells) {
+   private void loadData(RemoteCache<String, HPCharacter> characters, RemoteCache<String, HPSpell> spells) {
       try {
          loadCharacters(characters);
          LOGGER.info("Characters loaded. Size: " + characters.size());
@@ -88,7 +83,7 @@ public class DataLoader {
       }
    }
 
-   private void cleanupCaches(RemoteCache<Integer, HPCharacter> characters, RemoteCache<Integer, HPSpell> spells, RemoteCache<String, HPMagic> magic) {
+   private void cleanupCaches(RemoteCache<String, HPCharacter> characters, RemoteCache<String, HPSpell> spells, RemoteCache<String, HPMagic> magic) {
       try {
          CompletableFuture.allOf(characters.clearAsync(), spells.clearAsync(), magic.clearAsync()).get(10, TimeUnit.SECONDS);
       } catch (Exception e) {
@@ -102,16 +97,16 @@ public class DataLoader {
     * @param cache, characters cache
     * @throws Exception
     */
-   private void loadCharacters(RemoteCache<Integer, HPCharacter> cache) throws Exception {
+   private void loadCharacters(RemoteCache<String, HPCharacter> cache) throws Exception {
       try (BufferedReader br = new BufferedReader(new FileReader(charactersFileName))) {
          String line;
          int id = 0;
          while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            int type = Integer.parseInt(values[0].trim());
+            int type = Integer.valueOf(values[0].trim());
             CharacterType hpType = CharacterType.values()[type];
-            HPCharacter character = new HPCharacter(id, values[1].trim(), values[2].trim(), hpType);
-            cache.put(id, character);
+            HPCharacter character = new HPCharacter(id + "", values[1].trim(), values[2].trim(), hpType);
+            cache.put(id + "", character);
             id++;
          }
       }
@@ -123,14 +118,14 @@ public class DataLoader {
     * @param cache, spells cache
     * @throws Exception
     */
-   private void loadSpells(RemoteCache<Integer, HPSpell> cache) throws Exception {
+   private void loadSpells(RemoteCache<String, HPSpell> cache) throws Exception {
       try (BufferedReader br = new BufferedReader(new FileReader(spellsFileName))) {
          String line;
          int id = 0;
          while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            HPSpell spell = new HPSpell(id, values[0].trim(), values[1].trim(), values[2].trim());
-            cache.put(id, spell);
+            HPSpell spell = new HPSpell(id + "", values[0].trim(), values[1].trim(), values[2].trim());
+            cache.put(id + "", spell);
             id++;
          }
       }

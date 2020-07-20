@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.Search;
 import org.infinispan.hp.model.HPCharacter;
+import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryBuilder;
 import org.infinispan.query.dsl.QueryFactory;
 import org.slf4j.Logger;
@@ -24,13 +25,13 @@ public class CharacterSearch {
 
    @Inject
    @Remote(DataLoader.HP_CHARACTERS_NAME)
-   RemoteCache<Integer, HPCharacter> characters;
+   RemoteCache<String, HPCharacter> characters;
 
-   public HPCharacter getById(Integer id) {
+   public HPCharacter getById(String id) {
       return characters.get(id);
    }
 
-   public CompletionStage<HPCharacter> getByIdAsync(Integer id) {
+   public CompletionStage<HPCharacter> getByIdAsync(String id) {
       return characters.getAsync(id);
    }
 

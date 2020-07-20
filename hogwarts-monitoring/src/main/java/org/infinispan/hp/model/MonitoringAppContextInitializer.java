@@ -3,6 +3,7 @@ package org.infinispan.hp.model;
 import org.infinispan.protostream.SerializationContextInitializer;
 import org.infinispan.protostream.annotations.AutoProtoSchemaBuilder;
 
-@AutoProtoSchemaBuilder(includeClasses = {HPCharacter.class, HPSpell.class, HPMagic.class, CharacterType.class}, schemaPackageName = "hp_monitoring")
+@AutoProtoSchemaBuilder(schemaPackageName = "hp_monitoring",
+      includeClasses = {HPCharacter.class, HPSpell.class, HPMagic.class, CharacterType.class})
 public interface MonitoringAppContextInitializer extends SerializationContextInitializer {
 }
