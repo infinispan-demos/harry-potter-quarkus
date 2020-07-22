@@ -11,8 +11,6 @@ import javax.inject.Inject;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.Search;
 import org.infinispan.hp.model.HPCharacter;
-import org.infinispan.query.dsl.Query;
-import org.infinispan.query.dsl.QueryBuilder;
 import org.infinispan.query.dsl.QueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,12 +46,11 @@ public class CharacterSearch {
       }
       QueryFactory queryFactory = Search.getQueryFactory(characters);
 
-      QueryBuilder qb = queryFactory.from(HPCharacter.class)
-            .having("name").like("%" + term + "%")
-            .or()
-            .having("bio").like("%" + term + "%");
+      String query = "FROM hp_monitoring.HPCharacter c"
+      + " WHERE c.name LIKE '%"+ term + "%'"
+      + " OR c.bio LIKE '%" + term + "%'";
 
-      List<HPCharacter> characters = qb.build().list();
+      List<HPCharacter> characters = queryFactory.create(query).list();
       return characters.stream().map(HPCharacter::getName).collect(Collectors.toSet());
    }
 
