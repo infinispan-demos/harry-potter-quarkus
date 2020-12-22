@@ -30,13 +30,13 @@ The demo is composed by two applications that run independently:
 Each application has a dedicated section in this documentation
 
 == Before running the demo
-Quarkus uses the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html[Infinispan Remote Client].
+Quarkus uses the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html[Infinispan Remote Client] ("Hot Rod").
 You need to have an Infinispan Server running before you run this demo.
 
 === Option 1: Use Docker
     docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server
 
-IMPORTANT: *Docker for mac users*. There is a known issue to connect with the server using the hotrod client.
+IMPORTANT: *Docker for mac users*. There is a known issue to connect with the server using the Hot Rod client.
 Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
 You won't need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan
 Server running in a Docker container, create `hotrod-client.properties` file under `src/main/resources/META-INF` folder
@@ -44,9 +44,9 @@ in each application and configure `infinispan.client.hotrod.client_intelligence=
 
 
 === Option 2: Download and run the server
-- Download the server from http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip[here]
+- Download the server from https://downloads.jboss.org/infinispan/11.0.7.Final/infinispan-server-11.0.7.Final.zip[here]
 - Unzip the file 
-- Run a standalone server from the installation folder: `./bin/standalone.sh`
+- Run a standalone server from the installation folder: `./bin/server.sh`
 
 == Hogwarts Monitoring
 Characters can execute spells, and we want to monitor who is in Hogwarts and performing magic.
@@ -73,11 +73,13 @@ characters by id or perform a full-text search of the name or the biography.
 === Magic Socket
 link:hogwarts-monitoring/src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java[A socket] that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
-The continuous query does not have to go to the server and it is all stored in the client application itself. http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous[Read more about these queries in the official Infinispan documentation].
+The continuous query does not have to go to the server and it is all stored in the client application itself.
+Read more about these queries in the official https://infinispan.org/docs/stable/titles/developing/developing.html#query_continuous[Infinispan documentation].
 
 image::hogwarts-monitoring.png[Hogwarts Monitoring WebSocket]
 
 === Run Hogwarts Monitoring in dev mode
+Change into the `hogwarts-monitoring` directory.
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
 
@@ -111,8 +113,7 @@ from the `target` folder. However you can override these files location at runti
 
 The `wizards-magic` application is a simple web application that allows to put curses on someone!
 
-Run this application as explained above. The application will be available in
-`http://localhost:8082`
+Run this application as explained above. The application will be available at http://localhost:8082.
 
 A simple form will be displayed. You can add you name, pick a curse and tell which kind of Wizard you are.
 If the Hogwarts monitoring is running, you should be able to see your curse displayed... If you chose to be
