@@ -30,7 +30,7 @@ The demo is composed by two applications that run independently:
 Each application has a dedicated section in this documentation
 
 == Before running the demo
-Quarkus uses http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server[Infinispan Remote Client].
+Quarkus uses the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html[Infinispan Remote Client].
 You need to have an Infinispan Server running before you run this demo.
 
 === Option 1: Use Docker
@@ -81,7 +81,7 @@ image::hogwarts-monitoring.png[Hogwarts Monitoring WebSocket]
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
 
-Go to `http://localhost:8081` and monitor the magic!
+Go to http://localhost:8081 and monitor the magic!
 
 You will be connected to the monitoring socket. The interface displays some links to display a character by id and
  perform a full-text search.
@@ -97,7 +97,7 @@ You will be connected to the monitoring socket. The interface displays some link
    ./hogwarts-monitoring-runner
 
 === Loaded data
-Maven copies `hp_characters.csv` and `hp_spells.csv`to the target directory, that's why it's easier to run the executables
+Maven copies `hp_characters.csv` and `hp_spells.csv` to the target directory, that's why it's easier to run the executables
 from the `target` folder. However you can override these files location at runtime.
 
 .Running the jar
@@ -109,7 +109,7 @@ from the `target` folder. However you can override these files location at runti
 
 ## Wizards Magic
 
-THe `wizards-magic` application is a simple web application that allows to curse!
+The `wizards-magic` application is a simple web application that allows to put curses on someone!
 
 Run this application as explained above. The application will be available in
 `http://localhost:8082`
