@@ -50,7 +50,7 @@ public class CharacterSearch {
       + " WHERE c.name LIKE '%"+ term + "%'"
       + " OR c.bio LIKE '%" + term + "%'";
 
-      List<HPCharacter> characters = queryFactory.create(query).list();
+      List<HPCharacter> characters = queryFactory.<HPCharacter>create(query).execute().list();
       return characters.stream().map(HPCharacter::getName).collect(Collectors.toSet());
    }
 
