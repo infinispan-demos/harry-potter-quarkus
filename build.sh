@@ -15,4 +15,4 @@ mv README.html index.html
 git add -A
 git commit -m "Updated docs"
 git push origin gh-pages
-git checkout master
+git checkout main
