@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <title>Harry Potter Quarkus Demo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -47,7 +47,7 @@ textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
 *,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -62,10 +62,8 @@ img{-ms-interpolation-mode:bicubic}
 img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
-.center{margin-left:auto;margin-right:auto}
-.stretch{width:100%}
 .subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
-div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
 a{color:#2156a5;text-decoration:underline;line-height:inherit}
 a:hover,a:focus{color:#1d4b8f}
 a img{border:0}
@@ -96,28 +94,28 @@ dl dd{margin-bottom:1.25em}
 abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
 abbr{text-transform:none}
 blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
-blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
-blockquote cite::before{content:"\2014 \0020"}
-blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
 blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
 @media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
 h1{font-size:2.75em}
 h2{font-size:2.3125em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
 h4{font-size:1.4375em}}
-table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
 table thead,table tfoot{background:#f7f8f7}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt{background:#f8f8f7}
-table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
 .clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
 .clearfix::after,.float-group::after{clear:both}
-:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
-:not(pre)>code.nobreak{word-wrap:normal}
-:not(pre)>code.nowrap{white-space:nowrap}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
 pre>code{display:block}
@@ -182,7 +180,7 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
 #content #toc>:first-child{margin-top:0}
 #content #toc>:last-child{margin-bottom:0}
-#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
 #footer-text{color:rgba(255,255,255,.8);line-height:1.44}
 #content{margin-bottom:.625em}
 .sect1{padding-bottom:.625em}
@@ -205,7 +203,7 @@ table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font
 .admonitionblock>table td.icon{text-align:center;width:80px}
 .admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
-.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
 .exampleblock>.content>:first-child{margin-top:0}
@@ -215,7 +213,7 @@ table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font
 .sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
 .exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
-.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
@@ -260,22 +258,21 @@ pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
 .quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
 .quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
-.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
-table.tableblock{max-width:100%;border-collapse:separate}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
 p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
 td.tableblock>.content>:last-child{margin-bottom:-1.25em}
-td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
-table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
-table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
-table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
-table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
-table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
-table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
 table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
 table.frame-sides{border-width:0 1px}
-table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
 table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
 th.halign-left,td.halign-left{text-align:left}
 th.halign-right,td.halign-right{text-align:right}
@@ -284,7 +281,7 @@ th.valign-top,td.valign-top{vertical-align:top}
 th.valign-bottom,td.valign-bottom{vertical-align:bottom}
 th.valign-middle,td.valign-middle{vertical-align:middle}
 table thead th,table tfoot th{font-weight:bold}
-tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th{background:#f7f8f7}
 tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
 p.tableblock>code:only-child{background:none;padding:0}
 p.tableblock{font-size:1em}
@@ -313,6 +310,7 @@ ol.lowergreek{list-style-type:lower-greek}
 .hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
 .colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
 .colist td:not([class]):first-child img{max-width:none}
@@ -385,7 +383,7 @@ a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
-.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
 .conum[data-value] *{color:#fff!important}
 .conum[data-value]+b{display:none}
 .conum[data-value]::after{content:attr(data-value)}
@@ -412,6 +410,7 @@ thead{display:table-header-group}
 svg{max-width:100%}
 p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
 h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
 #toc,.sidebarblock,.exampleblock>.content{background:none!important}
 #toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
 body.book #header{text-align:center}
@@ -547,14 +546,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_before_running_the_demo">Before running the demo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Quarkus uses <a href="http://infinispan.org/docs/dev/user_guide/user_guide.html#client_server">Infinispan Remote Client</a>.
+<p>Quarkus uses the <a href="https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html">Infinispan Remote Client</a> ("Hot Rod").
 You need to have an Infinispan Server running before you run this demo.</p>
 </div>
 <div class="sect2">
 <h3 id="_option_1_use_docker">Option 1: Use Docker</h3>
 <div class="literalblock">
 <div class="content">
-<pre>docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server</pre>
+<pre>docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" infinispan/server</pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -564,7 +563,7 @@ You need to have an Infinispan Server running before you run this demo.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>Docker for mac users</strong>. There is a known issue to connect with the server using the hotrod client.
+<strong>Docker for mac users</strong>. There is a known issue to connect with the server using the Hot Rod client.
 Blog post <a href="https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html">here</a>.
 You won&#8217;t need to do this in production, but for testing/development purposes, if you want to connect to a Infinispan
 Server running in a Docker container, create <code>hotrod-client.properties</code> file under <code>src/main/resources/META-INF</code> folder
@@ -579,13 +578,16 @@ in each application and configure <code>infinispan.client.hotrod.client_intellig
 <div class="ulist">
 <ul>
 <li>
-<p>Download the server from <a href="http://downloads.jboss.org/infinispan/10.0.0.Beta2/infinispan-server-10.0.0.Beta2.zip">here</a></p>
+<p>Download the server from <a href="https://infinispan.org/download/">here</a></p>
 </li>
 <li>
 <p>Unzip the file</p>
 </li>
 <li>
-<p>Run a standalone server from the installation folder: <code>./bin/standalone.sh</code></p>
+<p>Create a user with admin rights from the installation folder: <code>./bin/cli.sh user create admin -p password</code></p>
+</li>
+<li>
+<p>Run a standalone server from the installation folder: <code>./bin/server.sh</code></p>
 </li>
 </ul>
 </div>
@@ -621,7 +623,7 @@ This is done at startup time</p>
 <div class="sect2">
 <h3 id="_magic_is_going_on">Magic is going on</h3>
 <div class="paragraph">
-<p><a href="src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java">Hogwarts Magic Creator</a> is going to emulate
+<p><a href="hogwarts-monitoring/src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java">Hogwarts Magic Creator</a> is going to emulate
 characters performing some magic. It will randomly pick a character and a spell to perform (if they can)!
 Characters in Hogwarts are teachers or students.</p>
 </div>
@@ -641,16 +643,17 @@ To disable this service, set <code>create.magic</code> property to <code>false</
 <div class="sect2">
 <h3 id="_search">Search</h3>
 <div class="paragraph">
-<p><a href="src/main/java/org/infinispan/hp/CharactersResource.java">A simple REST service</a> is available to query
+<p><a href="hogwarts-monitoring/src/main/java/org/infinispan/hp/CharactersResource.java">A simple REST service</a> is available to query
 characters by id or perform a full-text search of the name or the biography.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_magic_socket">Magic Socket</h3>
 <div class="paragraph">
-<p><a href="src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java">A socket</a> that performs a Continuous Query making it possible to
+<p><a href="hogwarts-monitoring/src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java">A socket</a> that performs a Continuous Query making it possible to
 monitor which characters in Hogwarts are currently performing magic.
-The continuous query does not have to go to the server and it is all stored in the client application itself. <a href="http://infinispan.org/docs/stable/user_guide/user_guide.html#query_continuous">Read more about these queries in the official Infinispan documentation</a>.</p>
+The continuous query does not have to go to the server and it is all stored in the client application itself.
+Read more about these queries in the official <a href="https://infinispan.org/docs/stable/titles/developing/developing.html#query_continuous">Infinispan documentation</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -661,11 +664,12 @@ The continuous query does not have to go to the server and it is all stored in t
 <div class="sect2">
 <h3 id="_run_hogwarts_monitoring_in_dev_mode">Run Hogwarts Monitoring in dev mode</h3>
 <div class="paragraph">
-<p>To run in development mode, just run <code>mvn clean compile quarkus:dev</code>. This allows for hot swapping the application, so you can tweak parts of it
+<p>Change into the <code>hogwarts-monitoring</code> directory.
+To run in development mode, just run <code>mvn clean compile quarkus:dev</code>. This allows for hot swapping the application, so you can tweak parts of it
 and it will automatically redeploy.</p>
 </div>
 <div class="paragraph">
-<p>Go to <code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code> and monitor the magic!</p>
+<p>Go to <a href="http://localhost:8081" class="bare">http://localhost:8081</a> and monitor the magic!</p>
 </div>
 <div class="paragraph">
 <p>You will be connected to the monitoring socket. The interface displays some links to display a character by id and
@@ -691,8 +695,8 @@ cd target
 <div class="sect2">
 <h3 id="_loaded_data">Loaded data</h3>
 <div class="paragraph">
-<p>Maven copies <code>hp_characters.csv</code> and <code>hp_spells.csv`to the target directory, that&#8217;s why it&#8217;s easier to run the executables
-from the `target</code> folder. However you can override these files location at runtime.</p>
+<p>Maven copies <code>hp_characters.csv</code> and <code>hp_spells.csv</code> to the target directory, that&#8217;s why it&#8217;s easier to run the executables
+from the <code>target</code> folder. However you can override these files location at runtime.</p>
 </div>
 <div class="literalblock">
 <div class="title">Running the jar</div>
@@ -713,11 +717,10 @@ from the `target</code> folder. However you can override these files location at
 <h2 id="_wizards_magic">Wizards Magic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>THe <code>wizards-magic</code> application is a simple web application that allows to curse!</p>
+<p>The <code>wizards-magic</code> application is a simple web application that allows to put curses on someone!</p>
 </div>
 <div class="paragraph">
-<p>Run this application as explained above. The application will be available in
-<code><a href="http://localhost:8082" class="bare">http://localhost:8082</a></code></p>
+<p>Run this application as explained above. The application will be available at <a href="http://localhost:8082" class="bare">http://localhost:8082</a>.</p>
 </div>
 <div class="paragraph">
 <p>A simple form will be displayed. You can add you name, pick a curse and tell which kind of Wizard you are.
@@ -877,7 +880,7 @@ oc new-app --image-stream=oc-wizards-magic:latest</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-18 14:08:49 +0100
+Last updated 2021-07-08 18:08:08 +0200
 </div>
 </div>
 </body>
