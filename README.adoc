@@ -34,7 +34,7 @@ Quarkus uses the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_ja
 You need to have an Infinispan Server running before you run this demo.
 
 === Option 1: Use Docker
-    docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server
+    docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" infinispan/server
 
 IMPORTANT: *Docker for mac users*. There is a known issue to connect with the server using the Hot Rod client.
 Blog post https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html[here].
@@ -44,8 +44,9 @@ in each application and configure `infinispan.client.hotrod.client_intelligence=
 
 
 === Option 2: Download and run the server
-- Download the server from https://downloads.jboss.org/infinispan/11.0.7.Final/infinispan-server-11.0.7.Final.zip[here]
-- Unzip the file 
+- Download the server from https://infinispan.org/download/[here]
+- Unzip the file
+- Create a user with admin rights from the installation folder: `./bin/cli.sh user create admin -p password`
 - Run a standalone server from the installation folder: `./bin/server.sh`
 
 == Hogwarts Monitoring

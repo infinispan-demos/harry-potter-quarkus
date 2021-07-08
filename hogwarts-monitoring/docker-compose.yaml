@@ -8,8 +8,8 @@ services:
   infinispan-server:
     image: infinispan/server
     environment:
-      - APP_USER=user
-      - APP_PASS=changeme
+      - APP_USER=admin
+      - APP_PASS=password
     ports:
       - "11222:11222"
     container_name: infinispan
@@ -27,7 +27,7 @@ services:
     command: >
       /bin/sh -c "
         echo Waiting for Infinispan service start ...;
-        while ! curl --silent --output /dev/null --fail-early --user user:changeme http://infinispan:8080;
+        while ! curl --silent --output /dev/null --fail-early --user admin:password http://infinispan:8080;
         do
           sleep 1;
         done;
