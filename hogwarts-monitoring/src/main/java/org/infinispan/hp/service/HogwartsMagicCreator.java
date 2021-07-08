@@ -37,14 +37,10 @@ public class HogwartsMagicCreator {
    private Random randomCharacters = new Random();
    private Random randomSpells = new Random();
 
-   /**
-    * Wait 10 seconds (should be enough time for stores to be created if they don't exist. Then perform some magic every
-    * 3 seconds
-    */
-   @Scheduled(every = "3s")
+   @Scheduled(every = "{magic.schedule}")
    public void executeMagic() {
       if (illegalState()) {
-         throw new IllegalStateException("Unable to perform magic at Hogwarts ... Is You-Know-Who around?");
+        return;
       }
 
       if (createMagic) {
@@ -76,12 +72,12 @@ public class HogwartsMagicCreator {
 
    private boolean illegalState() {
       if (characters == null || spells == null || magic == null) {
-         LOGGER.error("Characters, Spells or Magic stores are null. Expecto Patronum and restart the application");
+         LOGGER.warn("Characters, Spells or Magic stores do not exist yet. Wait...");
          return true;
       }
 
       if (characters.size() == 0 || spells.size() == 0) {
-         LOGGER.error("Characters or Spells stores are empty. Lumos and restart the application");
+         LOGGER.warn("Characters or Spells stores are still empty. Wait...");
          return true;
       }
 

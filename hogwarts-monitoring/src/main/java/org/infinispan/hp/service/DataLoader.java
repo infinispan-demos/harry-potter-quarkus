@@ -1,18 +1,9 @@
 package org.infinispan.hp.service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
+import io.quarkus.infinispan.client.Remote;
+import io.quarkus.runtime.StartupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
-import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.hp.model.CharacterType;
 import org.infinispan.hp.model.HPCharacter;
 import org.infinispan.hp.model.HPMagic;
@@ -20,7 +11,14 @@ import org.infinispan.hp.model.HPSpell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.quarkus.runtime.StartupEvent;
+import javax.annotation.Priority;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Service to cleanup and load application data
@@ -32,7 +30,6 @@ public class DataLoader {
    public static final String HP_CHARACTERS_NAME = "characters";
    public static final String HP_SPELLS_NAME = "spells";
    public static final String HP_MAGIC_NAME = "magic";
-   public static final String PROTOBUF_DIST_TEMPLATE = "example.PROTOBUF_DIST";
 
    @ConfigProperty(name = "characters.filename")
    String charactersFileName;
@@ -44,20 +41,22 @@ public class DataLoader {
    Boolean clean;
 
    @Inject
-   RemoteCacheManager cacheManager;
+   @Remote(HP_CHARACTERS_NAME)
+   RemoteCache<String, HPCharacter> characters;
+
+   @Inject
+   @Remote(HP_SPELLS_NAME)
+   RemoteCache<String, HPSpell> spells;
+
+   @Inject
+   @Remote(HP_MAGIC_NAME)
+   RemoteCache<String, HPMagic> magic;
 
    /**
     * Listens startup event to load the data
     */
    void onStart(@Observes @Priority(value = 1) StartupEvent ev) {
       LOGGER.info("On start - clean and load");
-      // Get or create caches
-      RemoteCache<String, HPCharacter> characters = cacheManager.administration().getOrCreateCache(HP_CHARACTERS_NAME, PROTOBUF_DIST_TEMPLATE);
-      RemoteCache<String, HPSpell> spells = cacheManager.administration().getOrCreateCache(HP_SPELLS_NAME, PROTOBUF_DIST_TEMPLATE);
-      RemoteCache<String, HPMagic> magic = cacheManager.administration().getOrCreateCache(HP_MAGIC_NAME, PROTOBUF_DIST_TEMPLATE);
-
-      LOGGER.info("Existing stores are " + cacheManager.getCacheNames().toString());
-
       // Cleanup data
       if (clean) {
          cleanupCaches(characters, spells, magic);
