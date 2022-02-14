@@ -17,6 +17,8 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -97,7 +99,10 @@ public class DataLoader {
     * @throws Exception
     */
    private void loadCharacters(RemoteCache<String, HPCharacter> cache) throws Exception {
-      try (BufferedReader br = new BufferedReader(new FileReader(charactersFileName))) {
+      InputStream resourceAsStream = this.getClass().getClassLoader()
+            .getResourceAsStream(charactersFileName);
+
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(resourceAsStream))) {
          String line;
          int id = 0;
          while ((line = br.readLine()) != null) {
@@ -118,7 +123,9 @@ public class DataLoader {
     * @throws Exception
     */
    private void loadSpells(RemoteCache<String, HPSpell> cache) throws Exception {
-      try (BufferedReader br = new BufferedReader(new FileReader(spellsFileName))) {
+      InputStream resourceAsStream = this.getClass().getClassLoader()
+            .getResourceAsStream(spellsFileName);
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(resourceAsStream))) {
          String line;
          int id = 0;
          while ((line = br.readLine()) != null) {
