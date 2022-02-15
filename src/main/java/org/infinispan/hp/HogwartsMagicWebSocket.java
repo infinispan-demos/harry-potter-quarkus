@@ -71,7 +71,7 @@ public class HogwartsMagicWebSocket {
          Query query = queryFactory.create("from hp_monitoring.HPMagic where hogwarts=true");
 
          // Create a Continuous Query Listener
-         ContinuousQueryListener<String, HPMagic> listener = new ContinuousQueryListener<String, HPMagic>() {
+         ContinuousQueryListener<String, HPMagic> listener = new ContinuousQueryListener<>() {
             @Override
             public void resultJoining(String key, HPMagic value) {
                broadcast(value.getCaster() + " executed " + value.getSpell());
