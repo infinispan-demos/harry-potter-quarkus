@@ -1,0 +1,5 @@
+credentials:
+  - username: admin
+    password: secret
+  - username: deployer
+    password: secret

@@ -84,7 +84,7 @@ Change into the `hogwarts-monitoring` directory.
 To run in development mode, just run `mvn clean compile quarkus:dev`. This allows for hot swapping the application, so you can tweak parts of it 
 and it will automatically redeploy.
 
-Go to http://localhost:8081 and monitor the magic!
+Go to http://localhost:8080 and monitor the magic!
 
 You will be connected to the monitoring socket. The interface displays some links to display a character by id and
  perform a full-text search.
@@ -123,3 +123,38 @@ a teacher or a student, of course!
 
 == Kubernetes
 
+=== Install and start Minikube
+```shell
+ minikube start --driver=virtualbox --cpus 4 --memory "8192mb"
+```
+=== Create Kubernetes Secret `sqlstore-credentials`
+```shell
+kubectl create secret generic clients-credentials
+--from-literal=db-username=infinispan
+--from-literal=db-password=secret
+--from-literal=infinispan-username=admin
+--from-literal=infinispan-password=secret
+```
+
+=== Build and deploy
+```shell
+eval $(minikube -p minikube docker-env)
+./mvnw clean package -Dquarkus.kubernetes.deploy=true -DskipTests=true
+```
+
+=== Install the Infinispan Operator
+```shell
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.19.1/install.sh | bash -s v0.19.1
+kubectl create -f https://operatorhub.io/install/infinispan.yaml
+kubectl get csv -n operators
+```
+
+=== Create Infinispan identities secret
+```shell
+kubectl create secret generic --from-file=identities.yaml connect-secret
+```
+
+=== Deploy infinispan server
+```shell
+kubectl apply -f infinispan.yaml
+```
