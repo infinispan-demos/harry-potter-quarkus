@@ -1,0 +1,10 @@
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/model/HPSpell.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/service/CharacterSearch.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/model/HPMagic.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/HogwartsMagicWebSocket.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/CharactersResource.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/model/HPCharacter.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/model/CharacterType.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/model/MonitoringAppContextInitializer.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/service/HogwartsMagicCreator.java
+/Users/karestig/REDHAT/QUARKUS/harry-potter-quarkus/src/main/java/org/infinispan/hp/service/DataLoader.java
