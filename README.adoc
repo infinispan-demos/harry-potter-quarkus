@@ -127,11 +127,9 @@ a teacher or a student, of course!
 ```shell
  minikube start --driver=virtualbox --cpus 4 --memory "8192mb"
 ```
-=== Create Kubernetes Secret `sqlstore-credentials`
+=== Create Kubernetes Secret `clients-credentials`
 ```shell
 kubectl create secret generic clients-credentials
---from-literal=db-username=infinispan
---from-literal=db-password=secret
 --from-literal=infinispan-username=admin
 --from-literal=infinispan-password=secret
 ```

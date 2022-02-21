@@ -7,9 +7,6 @@ spec:
   expose:
     type: NodePort
     nodePort: 30000
-  dependencies:
-    artifacts:
-      - url: https://search.maven.org/remotecontent?filepath=org/postgresql/postgresql/42.3.1/postgresql-42.3.1.jar
   security:
     endpointSecretName: connect-secret
   service:
