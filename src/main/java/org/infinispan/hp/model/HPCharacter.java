@@ -1,6 +1,7 @@
 package org.infinispan.hp.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.infinispan.protostream.annotations.ProtoFactory;
 import org.infinispan.protostream.annotations.ProtoField;
@@ -9,13 +10,13 @@ import org.infinispan.protostream.annotations.ProtoField;
  * Harry Potter saga character
  */
 public class HPCharacter {
-   private final String id;
+   private final UUID id;
    private final String name;
    private final String bio;
    private final CharacterType type;
 
    @ProtoFactory
-   public HPCharacter(String id, String name, String bio, CharacterType type) {
+   public HPCharacter(UUID id, String name, String bio, CharacterType type) {
       this.id = id;
       this.name = name;
       this.bio = bio;
@@ -49,7 +50,7 @@ public class HPCharacter {
    }
 
    @ProtoField(number = 1)
-   public String getId() {
+   public UUID getId() {
       return id;
    }
 

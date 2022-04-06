@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -109,7 +110,7 @@ public class DataLoader {
             String[] values = line.split(",");
             int type = Integer.valueOf(values[0].trim());
             CharacterType hpType = CharacterType.values()[type];
-            HPCharacter character = new HPCharacter(id + "", values[1].trim(), values[2].trim(), hpType);
+            HPCharacter character = new HPCharacter(UUID.randomUUID(), values[1].trim(), values[2].trim(), hpType);
             cache.put(id + "", character);
             id++;
          }
