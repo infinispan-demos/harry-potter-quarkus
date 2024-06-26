@@ -5,13 +5,10 @@ import java.util.Set;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.infinispan.client.hotrod.RemoteCache;
-import org.infinispan.client.hotrod.Search;
 import org.infinispan.hp.model.HPCharacter;
-import org.infinispan.query.dsl.QueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,14 +41,12 @@ public class CharacterSearch {
          LOGGER.error("Unable to search... Is He-Who-Must-Not-Be-Named around?");
          throw new IllegalStateException("Characters store is null. Try restarting the application");
       }
-      QueryFactory queryFactory = Search.getQueryFactory(characters);
-
       String query = "FROM hp_monitoring.HPCharacter c"
       + " WHERE c.name LIKE '%"+ term + "%'"
       + " OR c.bio LIKE '%" + term + "%'";
 
-      List<HPCharacter> characters = queryFactory.<HPCharacter>create(query).execute().list();
-      return characters.stream().map(HPCharacter::getName).collect(Collectors.toSet());
+      List<HPCharacter> result = characters.<HPCharacter>query(query).execute().list();
+      return result.stream().map(HPCharacter::name).collect(Collectors.toSet());
    }
 
 }

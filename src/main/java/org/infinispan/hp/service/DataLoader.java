@@ -2,6 +2,10 @@ package org.infinispan.hp.service;
 
 import io.quarkus.infinispan.client.Remote;
 import io.quarkus.runtime.StartupEvent;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.hp.model.CharacterType;
@@ -11,12 +15,7 @@ import org.infinispan.hp.model.HPSpell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.UUID;

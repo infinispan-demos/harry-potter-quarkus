@@ -3,8 +3,7 @@ package org.infinispan.hp.service;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.hp.model.HPCharacter;
@@ -54,7 +53,7 @@ public class HogwartsMagicCreator {
       HPCharacter character = getRandomHpCharacter();
       // skip those dirty muggles
       if (character != null && !character.canDoMagic()) {
-         LOGGER.info(character.getName() + " can't perform magic");
+         LOGGER.info(character.name() + " can't perform magic");
          return;
       }
 
@@ -67,7 +66,7 @@ public class HogwartsMagicCreator {
 
       // Perform magic
       String id = UUID.randomUUID().toString();
-      magic.put(id, new HPMagic(id, character.getName(), spell.getName(), character.isAtHogwarts()));
+      magic.put(id, new HPMagic(id, character.name(), spell.name(), character.isAtHogwarts()));
    }
 
    private boolean illegalState() {
